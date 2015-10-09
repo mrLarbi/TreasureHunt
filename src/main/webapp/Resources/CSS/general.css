@@ -1,0 +1,21 @@
+.button {
+	border-radius: 1px;
+}
+
+.textInput
+{
+    display: inline-block;
+    border-radius: 1px;
+}
+
+.center
+{
+    margin-left: 10%;
+    margin-right: 10%;	
+}
+
+.textCenter
+{
+    text-align: center;	
+    margin-top: 20px;
+}
