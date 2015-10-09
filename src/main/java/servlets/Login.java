@@ -1,4 +1,4 @@
-package treasureHuntServlets;
+package servlets;
 
 import java.io.IOException;
 
