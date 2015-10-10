@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,28 +15,43 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import hibernate.objects.User;
 
 public class ManageUsers {
-	private static SessionFactory sessionFactory;
-	private static ServiceRegistry serviceRegistry;
-
+	private SessionFactory sessionFactory;
+	private Session session;
+	
+	public ManageUsers () {
+		sessionFactory = createSessionFactory();
+	}
+	
 	public static SessionFactory createSessionFactory() {
 		Configuration configuration = new Configuration();
 		configuration.addAnnotatedClass(User.class);
 		configuration.configure();
-		serviceRegistry = new ServiceRegistryBuilder().applySettings(
+		
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
 				configuration.getProperties()). buildServiceRegistry();
-		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	
+		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	
 		return sessionFactory;
 	}
 
 	/* Method to CREATE a user in the database */
 	public Integer addUser(String username, String password, String email){
-		Session session = sessionFactory.openSession();
+		return addUser(createUser(username, password, email));
+	}
+
+	public User createUser(String username, String password, String email) {
+		User user = new User(username, password, email);
+		return user;
+	}
+	
+	public Integer  addUser(User user) {
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		Integer userID = null;
 
 		try {
 			tx = session.beginTransaction();
-			User user = new User(username, password, email);
 			userID = (Integer) session.save(user);
 			tx.commit();
 		} catch (HibernateException e) {
@@ -46,11 +62,12 @@ public class ManageUsers {
 		}
 
 		return userID;
-	}
 
+	}
+	
 	/* Method to DELETE a user from the records */
 	public void deleteUser(Integer userID){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -93,7 +110,7 @@ public class ManageUsers {
 
 	/* Method to UPDATE password for an user */
 	public void updateUserPassword(Integer userID, String newPassword){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -113,7 +130,7 @@ public class ManageUsers {
 	
 	/* Method to UPDATE name for an user */
 	public void updateUserName(Integer userID, String newName){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -133,7 +150,7 @@ public class ManageUsers {
 	
 	/* Method to UPDATE avatar for an user */
 	public void updateUserAvatar(Integer userID, String newAvatar){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -153,7 +170,7 @@ public class ManageUsers {
 	
 	/* Method to UPDATE gender for an user */
 	public void updateUserGender(Integer userID, char newGender){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -173,7 +190,7 @@ public class ManageUsers {
 	
 	/* Method to UPDATE postal code for an user */
 	public void updateUserPostalCode(Integer userID, int newPostalCode){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -193,7 +210,7 @@ public class ManageUsers {
 
 	/* Method to UPDATE phone for an user */
 	public void updateUserPhone(Integer userID, String newPhone){
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction tx = null;
 		
 		try {
@@ -212,8 +229,6 @@ public class ManageUsers {
 	}
 	
 	public static void main(String[] args) {
-
-		sessionFactory = createSessionFactory();
 
 		ManageUsers MU = new ManageUsers();
 		
@@ -234,5 +249,64 @@ public class ManageUsers {
 
 		/* List down new list of users */
 		MU.listUsers();
+	}
+	
+	// TODO need refactoring
+	public User findUserByUsername(String username, String password) {
+		session = sessionFactory.openSession();
+		Transaction transaction = null;
+		
+		try {
+			 Query query = session.createQuery("FROM User U WHERE U.username = :username AND U.password= :password");
+			 query.setParameter("username", username);
+			 query.setParameter("password", password);
+			 
+			 List<User> user = query.list();
+			 
+			 if(user.isEmpty()) {
+				 return null;
+			 }
+			 
+			 return user.get(0);
+		} catch (HibernateException e) {
+		} finally {
+			session.close(); 
+		}
+		return null;
+	}
+	
+	// TODO need refactoring with method up-top
+	public User findUserByEmail(String email, String password) {
+		session = sessionFactory.openSession();
+		Transaction transaction  = session.getTransaction();
+
+		try {
+			 Query query = session.createQuery("FROM User U WHERE U.email = :email AND U.password= :password");
+			 query.setParameter("email", email);
+			 query.setParameter("password", password);
+			 
+			 List<User> user = query.list();
+			 
+			 if (user.isEmpty()) {
+				 return null;
+			 }
+			 
+			 return user.get(0);
+		} catch (HibernateException e) {
+			if (transaction != null) transaction.rollback();
+			e.printStackTrace(); 
+		} finally {
+			session.close(); 
+		}
+		
+		return null;
+	}
+	public boolean isValidLogin(String username, String password) {
+		if (findUserByUsername(username, password) != null) {
+			return true;
+		} else if (findUserByEmail(username, password) != null) {
+			return true;
+		}
+		return false;
 	}
 }
