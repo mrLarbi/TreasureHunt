@@ -70,10 +70,5 @@ $(document).ready(function(){
 		
 	}
 	
-	function yolo()
-	{
-		
-	}
-	
 	hideErrors()
 })
