@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import hibernate.ManageUsers;
 import hibernate.objects.User;
 
-@WebServlet("/Login")
 public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

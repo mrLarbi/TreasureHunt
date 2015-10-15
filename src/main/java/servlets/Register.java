@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import hibernate.ManageUsers;
 import hibernate.objects.User;
 
-@WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ManageUsers manager;
