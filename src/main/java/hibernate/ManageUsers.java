@@ -11,41 +11,43 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import hibernate.objects.User;
 
 public class ManageUsers {
 	private SessionFactory sessionFactory;
 	private Session session;
-	
-	public ManageUsers () {
+
+	public ManageUsers() {
 		sessionFactory = createSessionFactory();
 	}
-	
+
 	public static SessionFactory createSessionFactory() {
 		Configuration configuration = new Configuration();
 		configuration.addAnnotatedClass(User.class);
 		configuration.configure();
-		
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-				configuration.getProperties()). buildServiceRegistry();
-	
+
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+				.buildServiceRegistry();
+
 		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-	
+
 		return sessionFactory;
 	}
 
 	/* Method to CREATE a user in the database */
-	public Integer addUser(String username, String password, String email){
+	public Integer addUser(String username, String password, String email) {
 		return addUser(createUser(username, password, email));
 	}
 
 	public User createUser(String username, String password, String email) {
+		password = BCrypt.hashpw(password, BCrypt.gensalt(12));
 		User user = new User(username, password, email);
 		return user;
 	}
-	
-	public Integer  addUser(User user) {
+
+	public Integer addUser(User user) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
 		Integer userID = null;
@@ -55,183 +57,185 @@ public class ManageUsers {
 			userID = (Integer) session.save(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 
 		return userID;
 
 	}
-	
+
 	/* Method to DELETE a user from the records */
-	public void deleteUser(Integer userID){
+	public void deleteUser(Integer userID) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
-			session.delete(user); 
+			User user = (User) session.get(User.class, userID);
+			session.delete(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
-	
+
 	/* Method to READ all the users */
-	public void listUsers( ){
+	public void listUsers() {
 		Session session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			List<User> users = session.createQuery("FROM User").list(); 
-			for (Iterator<User> iterator = 
-					users.iterator(); iterator.hasNext();) {
-				
-				User user = (User) iterator.next(); 
+			List<User> users = session.createQuery("FROM User").list();
+			for (Iterator<User> iterator = users.iterator(); iterator.hasNext();) {
+
+				User user = (User) iterator.next();
 				System.out.print(user.getUsername() + "\t" + user.getEmail() + "\t" + user.getAvatar() + "\t"
-						+ user.getName() + "\t" + user.getGender() + "\t" + user.getPostalcode() + "\t" + user.getPhone() + "\n");
+						+ user.getName() + "\t" + user.getGender() + "\t" + user.getPostalcode() + "\t"
+						+ user.getPhone() + "\n");
 			}
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
 
 	/* Method to UPDATE password for an user */
-	public void updateUserPassword(Integer userID, String newPassword){
+	public void updateUserPassword(Integer userID, String newPassword) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
+			User user = (User) session.get(User.class, userID);
 			user.setPassword(newPassword);
-			session.update(user); 
+			session.update(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
-	
+
 	/* Method to UPDATE name for an user */
-	public void updateUserName(Integer userID, String newName){
+	public void updateUserName(Integer userID, String newName) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
+			User user = (User) session.get(User.class, userID);
 			user.setName(newName);
-			session.update(user); 
+			session.update(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
-	
+
 	/* Method to UPDATE avatar for an user */
-	public void updateUserAvatar(Integer userID, String newAvatar){
+	public void updateUserAvatar(Integer userID, String newAvatar) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
+			User user = (User) session.get(User.class, userID);
 			user.setAvatar(newAvatar);
-			session.update(user); 
+			session.update(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
-	
+
 	/* Method to UPDATE gender for an user */
-	public void updateUserGender(Integer userID, char newGender){
+	public void updateUserGender(Integer userID, char newGender) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
+			User user = (User) session.get(User.class, userID);
 			user.setGender(newGender);
-			session.update(user); 
+			session.update(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
-	
+
 	/* Method to UPDATE postal code for an user */
-	public void updateUserPostalCode(Integer userID, int newPostalCode){
+	public void updateUserPostalCode(Integer userID, int newPostalCode) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
+			User user = (User) session.get(User.class, userID);
 			user.setPostalcode(newPostalCode);
-			session.update(user); 
+			session.update(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
 
 	/* Method to UPDATE phone for an user */
-	public void updateUserPhone(Integer userID, String newPhone){
+	public void updateUserPhone(Integer userID, String newPhone) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;
-		
+
 		try {
 			tx = session.beginTransaction();
-			User user = 
-					(User)session.get(User.class, userID); 
+			User user = (User) session.get(User.class, userID);
 			user.setPhone(newPhone);
-			session.update(user); 
+			session.update(user);
 			tx.commit();
 		} catch (HibernateException e) {
-			if (tx!=null) tx.rollback();
-			e.printStackTrace(); 
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		} finally {
-			session.close(); 
+			session.close();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 
 		ManageUsers MU = new ManageUsers();
-		
+
 		/* Add a few users in database */
 		int uID1 = MU.addUser("calderino", "pwd001", "juan@gmail.com");
 		int uID2 = MU.addUser("xxbluraydiscxx", "pwd002", "mohamed@gmail.com");
@@ -250,63 +254,68 @@ public class ManageUsers {
 		/* List down new list of users */
 		MU.listUsers();
 	}
-	
+
 	// TODO need refactoring
-	public User findUserByUsername(String username, String password) {
+	public User findUserByUsername(String username) {
 		session = sessionFactory.openSession();
 		Transaction transaction = null;
-		
-		try {
-			 Query query = session.createQuery("FROM User U WHERE U.username = :username AND U.password= :password");
-			 query.setParameter("username", username);
-			 query.setParameter("password", password);
-			 
-			 List<User> user = query.list();
-			 
-			 if(user.isEmpty()) {
-				 return null;
-			 }
-			 
-			 return user.get(0);
-		} catch (HibernateException e) {
-		} finally {
-			session.close(); 
-		}
-		return null;
-	}
-	
-	// TODO need refactoring with method up-top
-	public User findUserByEmail(String email, String password) {
-		session = sessionFactory.openSession();
-		Transaction transaction  = session.getTransaction();
 
 		try {
-			 Query query = session.createQuery("FROM User U WHERE U.email = :email AND U.password= :password");
-			 query.setParameter("email", email);
-			 query.setParameter("password", password);
-			 
-			 List<User> user = query.list();
-			 
-			 if (user.isEmpty()) {
-				 return null;
-			 }
-			 
-			 return user.get(0);
+			Query query = session.createQuery("FROM User U WHERE U.username = :username");
+			query.setParameter("username", username);
+
+			List<User> user = query.list();
+
+			if (user.isEmpty()) {
+				return null;
+			}
+
+			return user.get(0);
 		} catch (HibernateException e) {
-			if (transaction != null) transaction.rollback();
-			e.printStackTrace(); 
 		} finally {
-			session.close(); 
+			session.close();
 		}
-		
 		return null;
 	}
+
+	// TODO need refactoring with method up-top
+	public User findUserByEmail(String email) {
+		session = sessionFactory.openSession();
+		Transaction transaction = session.getTransaction();
+
+		try {
+			Query query = session.createQuery("FROM User U WHERE U.email = :email");
+			query.setParameter("email", email);
+
+			List<User> user = query.list();
+
+			if (user.isEmpty()) {
+				return null;
+			}
+
+			return user.get(0);
+		} catch (HibernateException e) {
+			if (transaction != null)
+				transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return null;
+	}
+
 	public boolean isValidLogin(String username, String password) {
-		if (findUserByUsername(username, password) != null) {
-			return true;
-		} else if (findUserByEmail(username, password) != null) {
+		User user = findUserByUsername(username);
+
+		if (user == null) {
+			user = findUserByEmail(username);
+		}
+
+		if (user != null && BCrypt.checkpw(password, user.getPassword())) {
 			return true;
 		}
+
 		return false;
 	}
 }

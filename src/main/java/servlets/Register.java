@@ -57,12 +57,12 @@ public class Register extends HttpServlet {
 		newUser.setName(name);
 		newUser.setPhone(phone);
 
-		if (zip != null) {
+		if (zip != null & !zip.isEmpty()) {
 			newUser.setPostalcode(Integer.parseInt(zip));
 		}
 
 		manager.addUser(newUser);
-		
+
 		writer.write("REGISTRATION SUCCESS");
 
 	}
