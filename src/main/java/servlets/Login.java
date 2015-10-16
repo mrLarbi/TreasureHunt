@@ -31,11 +31,8 @@ public class Login extends HttpServlet {
 	
 		//TODO validation
 		if (manager.isValidLogin(username, password)) {
-<<<<<<< HEAD
 			this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/welcome.jsp").forward(req, resp);
-=======
 			resp.sendRedirect("login");
->>>>>>> beba98d484e520add57cb9f918883458046dd4b5
 		} else {
 			this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
 		}
