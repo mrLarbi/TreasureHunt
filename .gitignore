@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 /src/main/resources/hibernate.cfg.xml	
 /target/
+=======
+src/main/resources/hibernate.cfg.xml
+target	
+>>>>>>> beba98d484e520add57cb9f918883458046dd4b5

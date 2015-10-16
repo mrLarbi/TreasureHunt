@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import hibernate.ManageUsers;
 import hibernate.objects.User;
 
-@WebServlet("/Register")
 public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ManageUsers manager;
@@ -58,12 +57,12 @@ public class Register extends HttpServlet {
 		newUser.setName(name);
 		newUser.setPhone(phone);
 
-		if (zip != null) {
+		if (zip != null & !zip.isEmpty()) {
 			newUser.setPostalcode(Integer.parseInt(zip));
 		}
 
 		manager.addUser(newUser);
-		
+
 		writer.write("REGISTRATION SUCCESS");
 
 	}
