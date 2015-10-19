@@ -1,20 +1,34 @@
-<h1> Latest Hunts </h1>
+<h1 class="row" id="lasthuntTitle" style="font-size: 48px"> Latest Hunts 
+</h1>
 <div>
-	<ul>
-		<li> 
-			<a href="nothingyet"> Paris by calderino </a>
-		</li>
-		<li> 
-			<a href="nothingyet"> UPMC by Charles </a>
-		</li>
-		<li> 
-			<a href="nothingyet"> FFI by Mohamed </a>
-		</li>
-		<li> 
-			<a href="nothingyet"> Kilimanjaro by Charles </a>
-		</li>
-		<li> 
-			<a href="nothingyet"> Massy by calderino </a>
-		</li>
-	</ul>
+	<div id ="lasthunt" class="row">
+		<span> <img src="Resources/Images/defaultAvatar.png"></img></span> 
+		<a href="nothingyet"> 
+			<span id="title">Paris</span> <span id="creator">by calderino</span> 
+		</a>
+	</div>
+	<div id ="lasthunt" class="row">
+		<span> <img src="Resources/Images/defaultAvatar.png"></img></span>
+		<a href="nothingyet"> 
+			<span id="title">UPMC</span> <span id="creator">by Charles</span> 
+		</a>
+	</div>
+	<div id ="lasthunt" class="row"> 
+		<span> <img src="Resources/Images/defaultAvatar.png"></img></span>
+		<a href="nothingyet"> 
+			<span id="title">FFI</span> <span id="creator">by Mohamed</span> 
+		</a>
+	</div>
+	<div id ="lasthunt" class="row">
+		<span> <img src="Resources/Images/defaultAvatar.png"></img></span> 
+		<a href="nothingyet"> 
+			<span id="title">Kilimanjaro</span> <span id="creator">by Charles</span> 
+		</a>
+	</div>
+	<div id ="lasthunt" class="row"> 
+		<span> <img src="Resources/Images/defaultAvatar.png"></img></span>
+		<a href="nothingyet"> 
+			<span id="title">Massy</span> <span id="creator">by calderino</span> 
+		</a>
+	</div>
 </div>
