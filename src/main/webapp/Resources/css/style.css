@@ -12,6 +12,12 @@ html body {
 
 h1 { 
 	font-family: 'Dancing Script', cursive;
+	font-size: 72px;
+}
+
+h2 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 48px;
 }
 
 .blackTransbg {

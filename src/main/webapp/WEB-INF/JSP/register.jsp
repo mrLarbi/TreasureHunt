@@ -1,10 +1,11 @@
 <html>
-
     <%@include file="header.jsp" %>
-    <script type="text/javascript" src="/Resources/JavaScript/register.js"></script>
     <body>
         <%@include file="/Resources/html/pageHeader.html"%>
-        <%@include file="/Resources/html/registerForm.html"%>
+
+        <div class = "container-fluid">
+        	<%@include file="/Resources/html/register.html"%>
+        </div>
     </body>
 </html>
 

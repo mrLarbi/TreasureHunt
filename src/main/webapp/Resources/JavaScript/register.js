@@ -1,179 +1,193 @@
-$(document).ready(function(){
-	var usernameError = $("#usernameError");
-	var passwordError = $("#passwordError");
-	var confirmationError = $("#confirmationError");
-	var emailError = $("#emailError");
-	var nameError = $("#nameError");
-	var genderError = $("#genderError");
-	var phoneError = $("#phoneError");
-	var zipcodeError = $("#zipcodeError");
-	
-	var usernameInput = $("#usernameInput");
-	var passwordInput = $("#passwordInput");
-	var confirmationInput = $("#confirmationInput");
-	var emailInput = $("#emailInput");
-	var nameInput = $("#nameInput");
-	var genderInput = $("#genderInput");
-	var phoneInput = $("#phoneInput");
-	var zipcodeInput = $("#zipcodeInput");
-	
-	var usernameErrorTextLength1 = "The username must have at least 2 characters"
-	var usernameErrorTextLength2 = "The username must not have more than 15 characters"
-	var usernameErrorTextRegExp = "The username must have only letters and digits"
-	var passwordErrorTextLength1 = "The password must have at least 6 characters"
-	var passwordErrorTextLength2 = "The password must not have more than 25 characters"
-	var passwordErrorTextRegExp = "The password must have at least a digit and a letter"
-	var confirmationErrorTextEqual = "The confirmation does not match the password"
-	var emailErrorTextRegExp = "The email format must be xxx@yyy.zz"	
-	var nameErrorTextRegExp = "The name must contain only letters and must not have more than 255 letters"	
-	var phoneErrorTextRegExp = "The phone must contain only digits and it's format must be XXXXXXXX"	
-	var zipcodeErrorTextRegExp = "The zipcode must contain only digits and it's format must be XXXXX"	
-		
-	function showError(errorElement, errorText)
-	{
-		errorElement.text(errorText);
-		errorElement.show();
-	}
-	
-	function hideError(errorElement)
-	{
-		errorElement.text("");
-		errorElement.hide();
-	}
-	
-	function checkUsername()
-	{
-		var usernameValue = usernameInput.val();
-		var usernameRegex = new RegExp('^\d*[a-zA-Z][a-zA-Z\d]*$')
-		
-		if(usernameValue.length < 2) {
-			showError(usernameError, usernameErrorTextLength1)
-		} else
-		if(usernameValue.length > 15) {
-			showError(usernameError, usernameErrorTextLength2)
-		} else if(!usernameRegex.test(usernameValue)) {
-			showError(usernameError, usernameErrorTextRegExp)
-		} else {
-			hideError(usernameError)
-		}
-	}
-	
-	usernameInput.keyup(function(){
-		checkUsername();
+$.validator.addMethod("regx", function(value, element, regexpr) {          
+    return regexpr.test(value);
+}, "Your input is not accepted.");
+
+$(document).ready(function () {
+
+	$('#regButton').click(function() {
+    	$('#registerForm').valid();
+    	$('#optionalForm').valid();
 	});
 
-	function checkPassword()
-	{
-		var passwordValue = passwordInput.val();
-		var passwordRegex = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$');
-		
-		if(passwordValue.length < 6) {
-			showError(passwordError, passwordErrorTextLength1)
-		} else if(passwordValue.length > 25) {
-			showError(passwordError, passwordErrorTextLength2)
-		} else if(!passwordRegex.test(passwordValue)) {
-			showError(passwordError, passwordErrorTextRegExp)
-		} else {
-			hideError(usernameError)
-		}
-	}
-	
-	passwordInput.keyup(function(){
-		checkPassword()
-		checkConfirmation()
-	});
+	$('input#genderbox').change(function(event) {
+		var checkedBox = event.target;
+        $('#genderBoxes input[type=checkbox]').each(function() {
+        	if($(this).val() != checkedBox.value) {
+    			$(this).prop("disabled", checkedBox.checked);
+    			$(this).prop("checked", false);
+    		}
+		});
+ 	});
 
-	function checkConfirmation()
-	{
-		if(passwordInput.val() === confirmationInput.val())
-		{
-			hideError(confirmationError);
-		}
-		else
-		{
-			showError(confirmationError, confirmationErrorTextEqual);
-		}
-	}
-	
-	confirmationInput.keyup(function(){
-		checkConfirmation()
-	});
-	
-	function checkEmail()
-	{
-		var emailValue = emailInput.val();
-		var emailRegex = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
-		
-		if(!emailRegex.test(emailValue)) {
-			showError(emailError, emailErrorTextRegExp)
-		} else {
-			hideError(emailError);
-		}
-	}
-	
-	emailInput.keyup(function(){
-		checkEmail();
-	});
-	
-	function checkName()
-	{
-		var nameValue = nameInput.val();
-		var nameRegex = new RegExp('^[a-zA-Z]*$');
-		
-		if(!nameRegex.test(nameValue)) {
-			showError(nameError, nameErrorTextRegExp)
-		} else {
-			hideError(nameError);
-		}
-	}
-	
-	nameInput.keyup(function(){
-		checkName();
-	});
-	
-	function checkPhone()
-	{
-		var phoneValue = phoneInput.val();
-		var phoneRegex = new RegExp('^[0-9]{8}$');
-		
-		if(!phoneRegex.test(phoneValue)) {
-			showError(phoneError, phoneErrorTextRegExp)
-		} else {
-			hideError(phoneError);
-		}
-	}
-	
-	phoneInput.keyup(function(){
-		checkPhone();
-	});
+    $('#registerForm').validate({
+        rules: {
+            username: {
+                required: true,
+                minlength: 6,
+                maxlength: 30
+            },
+            password: {
+            	required: true,
+            	minlength: 8
+            },
+            confirmation: {
+            	required: true,
+            	equalTo: "#password"
+            },
+            email: {
+            	required: true,
+            	email: true
+            }
+        },
+        messages: {
+        	username: {
+        		required: "You need have a username to login."
+        	},
+        	password: {
+        		required: "You need a password to protect your account.",
+        		minlength: "Your password is too short."
+        	},
+        	confirmation: {
+        		required: "You need to confirm your password.",
+        		equalTo: "The password does not match."
+        	},
+        	email: {
+        		required: "We need an email to contact you.",
+        		email: "The email must have the form aaa@bbb.ccc"
+        	}
+        },
+        errorPlacement: function(error, element) {
+        					var parent = element.parent();
+        					parent.append(error);
+        				},
+        highlight: 	function(element, errorClass) {
+    					element.parentElement.parentElement.className = "form-group has-error has-feedback";
+    					element.setAttribute("aria-describedby", "inputError2Status");
 
-	function checkZipcode()
-	{
-		var zipcodeValue = zipcodeInput.val();
-		var zipcodeRegex = new RegExp('^[0-9]{5}$');
-		
-		if(!zipcodeRegex.test(zipcodeValue)) {
-			showError(zipcodeError, zipcodeErrorTextRegExp)
-		} else {
-			hideError(zipcodeError);
-		}
-	}
-	
-	zipcodeInput.keyup(function(){
-		checkZipcode();
-	});
-	
-	function hideErrors()
-	{
-		usernameError.hide()
-		passwordError.hide()
-		confirmationError.hide()
-		emailError.hide()
-		nameError.hide()
-		genderError.hide()
-		phoneError.hide()
-		zipcodeError.hide()
-	}
-	
-	hideErrors();
-})
+    					var inputStatus = element.nextElementSibling;
+    					var parent = element.parentElement;
+    					while(inputStatus != null) {
+    						parent.removeChild(element.nextElementSibling);
+    						inputStatus = element.nextElementSibling;   						
+    					}
+
+    					var status = document.createElement("span");
+    					status.id = "inputError2Status";
+    					status.className = "sr-only";
+    					status.appendChild(document.createTextNode("error"));
+    					parent.appendChild(status);
+
+    					var icon = document.createElement("span");
+    					icon.className = "glyphicon glyphicon-remove form-control-feedback";
+    					icon.setAttribute("aria-hidden", "true");
+    					parent.appendChild(icon);
+
+    				},
+    	unhighlight: function(element, errorClass) {
+    					element.parentElement.parentElement.className = "form-group has-success has-feedback";
+    					element.setAttribute("aria-describedby", "inputSuccess2Status");
+
+    					var inputStatus = element.nextElementSibling;
+    					var parent = element.parentElement;
+    					while(inputStatus != null) {
+    						parent.removeChild(element.nextElementSibling);
+    						inputStatus = element.nextElementSibling;   						
+    					}
+
+    					var status = document.createElement("span");
+    					status.id = "inputSuccess2Status";
+    					status.className = "sr-only";
+    					status.appendChild(document.createTextNode("success"));
+    					parent.appendChild(status);
+
+    					var icon = document.createElement("span");
+    					icon.className = "glyphicon glyphicon-ok form-control-feedback";
+    					icon.setAttribute("aria-hidden", "true");
+    					parent.appendChild(icon);
+    	}
+    });
+});
+
+$(document).ready(function () {
+    $('#optionalForm').validate({
+        rules: {
+            realname: {
+            	regx: /^[-'a-zA-ZÀ-ÖØ-öø-ſ. ]*$/
+            },
+            phone: {
+            	minlength: 10,
+            	maxlength: 10,
+            	regx: /^(([0-9][0-9]){5})?$/
+            },
+            zcode: {
+            	minlength: 5,
+            	maxlength: 5,
+            	regx: /^((75|77|78|91|92|93|94|95)[0-9]{3})?$/
+            }
+        },
+        messages: {
+        	realname: {
+        		regx: "Please enter your real name."
+        	},
+        	phone: {
+        		minlenght: "That phone number is too short.",
+        		maxlength: "That phone number is too long.",
+        		regx: "Your phone must be composed of only 10 numbers."
+        	},
+        	zcode: {
+        		minlength: "That zip code is too short.",
+        		maxlength: "That zip code is too long.",
+        		regx: "You must live in Île-de-France."
+        	}
+        },
+        errorPlacement: function(error, element) {
+        					var parent = element.parent();
+        					parent.append(error);
+        				},
+        highlight: 	function(element, errorClass) {
+    					element.parentElement.parentElement.className = "form-group has-error has-feedback";
+    					element.setAttribute("aria-describedby", "inputError2Status");
+
+    					var inputStatus = element.nextElementSibling;
+    					var parent = element.parentElement;
+    					while(inputStatus != null) {
+    						parent.removeChild(element.nextElementSibling);
+    						inputStatus = element.nextElementSibling;   						
+    					}
+
+    					var status = document.createElement("span");
+    					status.id = "inputError2Status";
+    					status.className = "sr-only";
+    					status.appendChild(document.createTextNode("error"));
+    					parent.appendChild(status);
+
+    					var icon = document.createElement("span");
+    					icon.className = "glyphicon glyphicon-remove form-control-feedback";
+    					icon.setAttribute("aria-hidden", "true");
+    					parent.appendChild(icon);
+
+    				},
+    	unhighlight: function(element, errorClass) {
+    					element.parentElement.parentElement.className = "form-group has-success has-feedback";
+    					element.setAttribute("aria-describedby", "inputSuccess2Status");
+
+    					var inputStatus = element.nextElementSibling;
+    					var parent = element.parentElement;
+    					while(inputStatus != null) {
+    						parent.removeChild(element.nextElementSibling);
+    						inputStatus = element.nextElementSibling;   						
+    					}
+
+    					var status = document.createElement("span");
+    					status.id = "inputSuccess2Status";
+    					status.className = "sr-only";
+    					status.appendChild(document.createTextNode("success"));
+    					parent.appendChild(status);
+
+    					var icon = document.createElement("span");
+    					icon.className = "glyphicon glyphicon-ok form-control-feedback";
+    					icon.setAttribute("aria-hidden", "true");
+    					parent.appendChild(icon);
+    	}
+    });
+});

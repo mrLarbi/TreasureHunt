@@ -1,5 +1,4 @@
-<h1 class="row" id="lasthuntTitle" style="font-size: 48px"> Latest Hunts 
-</h1>
+<h2 class="row" id="lasthuntTitle"> Latest Hunts </h2>
 <div>
 	<div id ="lasthunt" class="row">
 		<span> <img src="Resources/Images/defaultAvatar.png"></img></span> 

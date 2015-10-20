@@ -4,12 +4,6 @@
 
 <web-app>
     <display-name>Super Treasure Hunt Bros</display-name>
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
-            <el-ignored>false</el-ignored>
-        </jsp-property-group>
-    </jsp-config>
 
     <servlet>
         <servlet-name>login</servlet-name>
