@@ -1,4 +1,4 @@
-package hibernate;
+package hibernate.managers;
 
 import java.util.Iterator;
 import java.util.List;
@@ -230,6 +230,22 @@ public class ManageUsers {
 		} finally {
 			session.close();
 		}
+	}
+
+	public void addFriend(Integer userID, Integer friendID) {
+
+	}
+
+	public void removeFriend(Integer userID, Integer friendID) {
+
+	}
+
+	public void addMessage(Integer userID, Integer friendID) {
+
+	}
+
+	public void removeMessage(Integer userID, Integer friendID) {
+
 	}
 
 	public static void main(String[] args) {

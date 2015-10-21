@@ -18,6 +18,13 @@
       <property name="name" column="name" type="string"/>
       <property name="gender" column="gender" type="character"/>
       <property name="postalcode" column="postalcode" type="int"/>
-      <property name="phone" column="phone" type="string"/>
+      <property name="friends" column="friends" type="int[]"/>
+      <property name="messages" column="messages" type="int[]"/>
+      <property name="createdhunts" column="createdhunts" type="int[]"/>
+      <property name="currenthunts" column="currenthunts" type="int[]"/>
+      <property name="finishedhunts" column="finishedhunts" type="int[]"/>
+      <property name="remember" column="remember" type="string"/>
+
+
    </class>
 </hibernate-mapping>

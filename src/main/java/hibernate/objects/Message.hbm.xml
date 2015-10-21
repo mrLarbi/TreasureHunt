@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="hibernate.objects.Message" table="messages">
+        <meta attribute="class-description">
+            This class contains the hunt data.
+        </meta>
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="userfrom" column="userfrom" type="int"/>
+        <property name="userto" column="userto" type="int"/>
+        <property name="content" column="content" type="string"/>
+    </class>
+</hibernate-mapping>
