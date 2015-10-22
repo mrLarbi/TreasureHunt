@@ -1,5 +1,6 @@
 package servlets;
 
+import backend.PageHandler;
 import backend.SessionHandler;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class Home extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionHandler.checkSessionLogged(request);
+		PageHandler.setTitleAndHeader(request, "Welcome to your Treasure Hunt!");
 		this.getServletContext().getRequestDispatcher( "/WEB-INF/JSP/welcome.jsp" ).forward( request, response );
 	}
 
