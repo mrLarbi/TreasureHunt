@@ -9,5 +9,10 @@
   		<property name="hibernate.connection.username">mohameddd</property>
   		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
   		<property name="hibernate.show_sql">true</property>
- 	</session-factory>
+		<mapping class="hibernate.objects.User"/>
+		<mapping class="hibernate.objects.Coordinates"/>
+		<mapping class="hibernate.objects.Message"/>
+		<mapping class="hibernate.objects.Hunt"/>
+	</session-factory>
+
 </hibernate-configuration>

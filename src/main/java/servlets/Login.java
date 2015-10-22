@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import backend.SessionHandler;
 import hibernate.managers.ManageUsers;
 
 public class Login extends HttpServlet {
@@ -29,6 +30,7 @@ public class Login extends HttpServlet {
 	
 		//TODO validation
 		if (manager.isValidLogin(username, password)) {
+			SessionHandler.setLogged(req, true);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/welcome.jsp").forward(req, resp);
 			resp.sendRedirect("login");
 		} else {

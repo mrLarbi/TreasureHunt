@@ -31,7 +31,7 @@ public class User {
 	private int[] friends;
 	@Column(name = "messages")
 	private int[] messages;
-	@Column(name = "createdhunts") 
+	@Column(name = "createdhunts")
 	private int[] createdhunts;
 	@Column(name = "currenthunts")
 	private int[] currenthunts;
