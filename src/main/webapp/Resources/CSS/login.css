@@ -1,0 +1,29 @@
+#loginForm {
+	padding: 10px;
+}
+
+#loginFormContainer {
+	margin-top: 5%;
+}
+
+#lasthunt {
+	height: 10%;
+	padding: 10px;
+}
+
+#lasthuntTitle {
+	text-align: center;
+}
+
+#title {
+	font-size: 30px;
+}
+
+#creator {
+	font-size: 14px;
+	font-style: italic;
+}
+
+img {
+	 height:100%;
+}
