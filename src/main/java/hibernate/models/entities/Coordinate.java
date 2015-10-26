@@ -1,5 +1,7 @@
 package hibernate.models.entities;
 
+import org.hibernate.annotations.Where;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,8 +11,8 @@ import javax.persistence.*;
 @Table(name = "coordinates")
 public class Coordinate {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="coords_id_seq")
-    @SequenceGenerator(name="coords_id_seq", sequenceName="coords_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="coord_id_seq")
+    @SequenceGenerator(name="coord_id_seq", sequenceName="coord_id_seq", allocationSize=1)
     @Column(name = "id")
     private int id;
     
@@ -28,9 +30,23 @@ public class Coordinate {
 
     @ManyToMany(mappedBy = "coordinates")
     private Set<Hunt> hunts;
-    
+
+    @OneToMany(mappedBy = "hunting.huntedPoint",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @Where(clause = "finished = 'false'")
+    private Set<Hunter> usersCurrentHunts;
+
+    @OneToMany(mappedBy = "hunting.huntedPoint",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    @Where(clause = "finished = 'true'")
+    private Set<Hunter> usersFinishedHunts;
+
 	public Coordinate() {
     	hunts = new HashSet<>();
+        usersCurrentHunts = new HashSet<>();
+        usersFinishedHunts = new HashSet<>();
     }
 
     public Coordinate(String name, String latitude, String longitude, String image) {
@@ -89,4 +105,20 @@ public class Coordinate {
 		this.hunts = hunts;
 	}
 
+    public Set<Hunter> getUsersFinishedHunts() {
+        return usersFinishedHunts;
+    }
+
+    public void setUsersFinishedHunts(Set<Hunter> usersFinishedHunts) {
+        this.usersFinishedHunts = usersFinishedHunts;
+    }
+
+
+    public Set<Hunter> getUsersCurrentHunts() {
+        return usersCurrentHunts;
+    }
+
+    public void setUsersCurrentHunts(Set<Hunter> usersCurrentHunts) {
+        this.usersCurrentHunts = usersCurrentHunts;
+    }
 }

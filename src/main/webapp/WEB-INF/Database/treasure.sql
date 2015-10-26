@@ -222,6 +222,7 @@ CREATE TABLE hunters (
     finished boolean,
     hunter_id integer NOT NULL,
     hunt_id integer NOT NULL,
+    coord_id integer NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -294,7 +295,7 @@ COPY friends (id, follower, agent,created) FROM stdin;
 COPY hunt_coord (id, hunt_id, coord_id) FROM stdin;
 \.
 
-COPY hunters (id, hunter_id, hunt_id, finished) FROM stdin;
+COPY hunters (id, hunter_id, hunt_id, coord_id, finished) FROM stdin;
 \.
 --
 -- Name: coords_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
@@ -327,6 +328,10 @@ ALTER TABLE ONLY hunts
   ALTER TABLE ONLY hunters
       ADD CONSTRAINT hunters_fkey2 FOREIGN KEY (hunt_id)
   	       REFERENCES hunts(id);
+
+  ALTER TABLE ONLY hunters
+      ADD CONSTRAINT hunters_fkey3 FOREIGN KEY (coord_id)
+  	       REFERENCES coordinates(id);
 
 --
 -- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:

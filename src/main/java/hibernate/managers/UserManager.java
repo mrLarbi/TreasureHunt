@@ -3,6 +3,7 @@ package hibernate.managers;
 import java.util.Iterator;
 import java.util.List;
 
+import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
 import hibernate.utility.HibernateUtility;
 import hibernate.utility.SqlDateUtility;
@@ -233,11 +234,28 @@ public class UserManager {
 
 		UserManager MU = new UserManager();
 
-		User user = MU.findUserByEmail("test@gmail.com");
+		User user = MU.findUserByEmail("charles@gmail.com");
 
 		HuntManager HM = new HuntManager();
-		Hunt hunt = HM.createHunt("Massy", user);
-		HM.addHunt(hunt);
+		List<Hunt> hunts = HM.latestHunts();
+		Hunt hunt = hunts.get(1);
+
+		Coordinate coordinate = new Coordinate();
+		coordinate.setLatitude("67.9");
+		coordinate.setLongitude("34.09");
+		coordinate.setName("Test");
+
+		CoordinateManager CM = new CoordinateManager();
+
+		CM.addCoordinate(coordinate);
+
+
+		hunt.addCoordinate(coordinate);
+
+		MU.startHunting(user,hunt);
+
+		MU.checkCoordinate(user,hunt, coordinate);
+
 	}
 
 	// TODO need refactoring
@@ -370,7 +388,7 @@ public class UserManager {
 
 		try {
 			tx = session.beginTransaction();
-			hunter.getCurrenthunts().add(HuntingManager.createHunting(hunter,startedHunt));
+			hunter.getCurrenthunts().addAll(HuntingManager.createHunting(hunter, startedHunt));
 			session.update(hunter);
 			tx.commit();
 		} catch (HibernateException e) {
@@ -382,7 +400,7 @@ public class UserManager {
 		}
 	}
 
-	public void finishHunting(User hunter, Hunt finishedHunt) {
-		HuntingManager.finishHunting(hunter,finishedHunt);
+	public void checkCoordinate(User hunter, Hunt currentHunt, Coordinate coordinate) {
+		HuntingManager.checkCoordinate(hunter, currentHunt, coordinate);
 	}
 }

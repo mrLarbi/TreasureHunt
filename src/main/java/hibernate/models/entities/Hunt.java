@@ -35,7 +35,9 @@ public class Hunt {
 		this.createdAt = createdAt;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL,
+                fetch = FetchType.EAGER
+    )
     @JoinTable(
             name = "hunt_coord",
             joinColumns = @JoinColumn(name = "hunt_id"),

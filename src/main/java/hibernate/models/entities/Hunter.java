@@ -22,7 +22,9 @@ import java.util.Objects;
 	@AssociationOverride(name="hunting.hunter",
 						joinColumns = @ JoinColumn(name= "hunter_id")),
 	@AssociationOverride( name = "hunting.hunt",
-						joinColumns = @JoinColumn(name = "hunt_id"))
+						joinColumns = @JoinColumn(name = "hunt_id")),
+	@AssociationOverride(name = "hunting.huntedPoint",
+						joinColumns = @JoinColumn(name = "coord_id"))
 })
 public class Hunter {
 	@Id
@@ -69,6 +71,14 @@ public class Hunter {
 
 	public void setFinished(boolean status) {
 		this.finished = status;
+	}
+
+	public Coordinate getHuntedPoint() {
+		return hunting.getHuntedPoint();
+	}
+
+	public void setHuntedPoint(Coordinate coord) {
+		hunting.setHuntedPoint(coord);
 	}
 
 }

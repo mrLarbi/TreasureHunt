@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
 	@SequenceGenerator(name="user_id_seq", sequenceName="user_id_seq", allocationSize=1)
@@ -53,23 +52,23 @@ public class User {
 	@OneToMany(mappedBy = "friends.agent",
 			cascade = CascadeType.ALL,
 			fetch = FetchType.EAGER)
-	private Set<Friend> myFollowers = new HashSet<>();
+	private Set<Friend> myFollowers;
 	
 	
 	@OneToMany(mappedBy = "friends.follower",
 			cascade = CascadeType.ALL,
 			fetch = FetchType.EAGER)
-	private Set<Friend> listOFfollowed = new HashSet<>();
+	private Set<Friend> listOFfollowed;
 	
 	@OneToMany(fetch = FetchType.EAGER,
 			mappedBy = "users.sender", 
 			cascade = CascadeType.ALL)
-	private Set<Message> sentMessages = new HashSet<>();
+	private Set<Message> sentMessages;
 
 	@OneToMany(fetch = FetchType.EAGER,
 			mappedBy = "users.receiver", 
 			cascade = CascadeType.ALL)
-	private Set<Message> receivedMessages = new HashSet<>();
+	private Set<Message> receivedMessages;
 
 	@OneToMany(mappedBy="creator", 
 			cascade=CascadeType.ALL,
@@ -80,13 +79,13 @@ public class User {
 			cascade = CascadeType.ALL,
 			fetch = FetchType.EAGER)
 	@Where(clause = "finished= 'false'")
-	private Set<Hunter> currentHunts = new HashSet<>();
+	private Set<Hunter> currentHunts;
 	
 	@OneToMany(mappedBy = "hunting.hunter", 
 				cascade = CascadeType.ALL,
 				fetch = FetchType.EAGER)
 	@Where(clause = "finished ='true'")
-	private Set<Hunter> finishedhunts = new HashSet<>();
+	private Set<Hunter> finishedhunts;
     
 
 	public User() {}
@@ -97,6 +96,12 @@ public class User {
 		this.avatar = "default.jpg";
 		this.gender = 'N'; //NONE
 		this.createdhunts = new HashSet<>();
+		this.createdhunts = new HashSet<>();
+		this.finishedhunts = new HashSet<>();
+		this.sentMessages = new HashSet<>();
+		this.receivedMessages = new HashSet<>();
+		this.myFollowers = new HashSet<>();
+		this.listOFfollowed = new HashSet<>();
 	}
 
 	public Set<Friend> getFriends() {
@@ -259,5 +264,14 @@ public class User {
 	public void setListOFfollowed(Set<Friend> listOFfollowed) {
 		this.listOFfollowed = listOFfollowed;
 	}
+
+	public Set<Hunter> getCurrentHunts() {
+		return currentHunts;
+	}
+
+	public void setCurrentHunts(Set<Hunter> currentHunts) {
+		this.currentHunts = currentHunts;
+	}
+
 
 }
