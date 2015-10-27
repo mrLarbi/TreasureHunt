@@ -4,9 +4,9 @@
 <hibernate-configuration>
  	<session-factory>
   		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-  		<property name="hibernate.connection.password">manyanda</property>
-  		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/treasure</property>
-  		<property name="hibernate.connection.username">manyanda</property>
+  		<property name="hibernate.connection.password">JD7lCWbC2CKW4A_s1k-5fUnYEF</property>
+  		<property name="hibernate.connection.url">jdbc:postgresql://ec2-54-197-241-24.compute-1.amazonaws.com:5432/db1il95qhaup05</property>
+  		<property name="hibernate.connection.username">xjogafgocvmmrs</property>
   		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
   		<property name="hibernate.show_sql">true</property>
 		<mapping class="hibernate.models.entities.User"/>
@@ -19,5 +19,5 @@
 		<mapping class="hibernate.models.embeddable.R_Friendship"/>
 		<mapping class="hibernate.models.embeddable.R_Messaging"/>
 		<mapping class="hibernate.models.embeddable.R_Hunting"/>
-	</session-factory>
+ 		</session-factory>
 </hibernate-configuration>
