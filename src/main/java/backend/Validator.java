@@ -33,7 +33,7 @@ public class Validator {
 		return !phone.isEmpty() && regex.matches(phone);
 	}
 
-	public static boolean isValidUserName(String username) {
+	public static boolean isValidUsername(String username) {
 		RegularExpression regex = new RegularExpression(USER_NAME_PATTERN);
 		
 		return username != null && username.length() >= 2 && 
@@ -41,8 +41,8 @@ public class Validator {
 	}
 	
 	public static boolean isValidPassword(String password) {
-		RegularExpression regex = new RegularExpression(PASSWORD_PATTERN);
-		return password != null && password.length() >= 6 && 
-				password.length() <= 25 && regex.matches(password); 
+		//RegularExpression regex = new RegularExpression(PASSWORD_PATTERN);
+		return password != null && password.length() >= 6 &&
+				password.length() <= 25; // && regex.matches(password);
 	}
 }

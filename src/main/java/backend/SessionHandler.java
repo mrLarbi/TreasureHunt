@@ -32,7 +32,7 @@ public class SessionHandler {
 		if (user == null) {
 			// Login errors
 
-			request.getRequestDispatcher("/home.jsp").forward(request, response);
+			request.getRequestDispatcher("/home").forward(request, response);
 			return false;
 		}
 
@@ -66,24 +66,33 @@ public class SessionHandler {
 		User user = getUser(request, manager);
 
 		if (user == null) {
-			System.out.print("User null, does not work");
-			String username = request.getParameter("username");
+			String email = request.getParameter("email");
 			String password = request.getParameter("password");
-			if (Validator.isValidUserName(username) && 
-					Validator.isValidPassword(password)) {
-				user = manager.find(username, password);
+			if (Validator.isValidMail(email) && Validator.isValidPassword(password)) {
+				user = manager.find(email, password);
 			}
 		}
 
 		if (user != null) {
-			addUserToSession(request, user);													// session.
-			response.sendRedirect("login"); // Go to some start page.
+			addUserToSession(request, user);
+			PrintWriter writer = response.getWriter();
+			writer.write("<p> Username: " + user.getUsername()+ "</p><br>");
+			writer.write("<p> Email: " + user.getEmail() + "</p><br>");
+
+			writer.write("<p> Signed up at: " + user.getCreated().toLocalDate().toString() + "</p><br>");
+			writer.write("<p> Followed by: " + user.getMyFollowers() + "</p><br>");
+			writer.write("<p> Follows: " + user.getListOFfollowed() + "</p>");
+
+			writer.write("<p> List of sent messages: " + user.getSentMessages()+ "</p><br>");
+			writer.write("<p> List of received messages: " + user.getReceivedMessages() + "</p><br>");
+			// session.
+			// response.sendRedirect("login"); // Go to start page.
 		} else {
 			// Set error msg for ${error}
 			request.setAttribute("error", "Unknown login, try again"); 
 
 			// Go back to login page.
-			request.getRequestDispatcher("/home.jsp").forward(request, response); 
+			request.getRequestDispatcher("/home").forward(request, response);
 		}
 	}
 
@@ -116,7 +125,8 @@ public class SessionHandler {
 		String zip = request.getParameter("zcode");
 		String phone = request.getParameter("phone");
 
-		if (!password.equals(pConfirmation) && !Validator.isValidPassword(password) && !Validator.isValidMail(email) && !Validator.isValidUserName(username)) {
+		if (!password.equals(pConfirmation) && !Validator.isValidPassword(password) &&
+				!Validator.isValidMail(email) && !Validator.isValidUsername(username)) {
 			return null;
 		}
 
