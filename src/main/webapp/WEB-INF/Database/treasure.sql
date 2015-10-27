@@ -135,17 +135,16 @@ ALTER TABLE user_id_seq OWNER TO postgres;
 
 CREATE TABLE users (
     id integer DEFAULT nextval('user_id_seq'::regclass) NOT NULL,
-    username text NOT NULL,
+    username text NOT NULL UNIQUE ,
     password text NOT NULL,
-    email text NOT NULL,
+    email text NOT NULL UNIQUE ,
     avatar text NOT NULL,
     name text,
     gender character(1),
     postalcode integer,
     phone text,
     created timestamp with time zone,
-    remember text,
-    UNIQUE(remember, email, username)
+    remember text UNIQUE
 );
 
 
