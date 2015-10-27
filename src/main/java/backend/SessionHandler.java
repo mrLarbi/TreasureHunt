@@ -109,11 +109,11 @@ public class SessionHandler {
 	public static User createUserFromSignUpRequest(HttpServletRequest request, UserManager manager) {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String pConfirmation = request.getParameter("confirm");
+		String pConfirmation = request.getParameter("confirmation");
 		String email = request.getParameter("email");
-		String name = request.getParameter("name");
+		String name = request.getParameter("realname");
 		String gender = request.getParameter("gender");
-		String zip = request.getParameter("zip");
+		String zip = request.getParameter("zcode");
 		String phone = request.getParameter("phone");
 
 		if (!password.equals(pConfirmation) && !Validator.isValidPassword(password) && !Validator.isValidMail(email) && !Validator.isValidUserName(username)) {
