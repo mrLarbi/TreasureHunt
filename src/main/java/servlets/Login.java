@@ -8,20 +8,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import backend.SessionHandler;
-import hibernate.managers.UserManager;
+import hibernate.managers.ManageUsers;
 
 public class Login extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	ManageUsers manager;
+	
 	public Login() {
 		super();
+		manager = new ManageUsers();
 	}
 	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		SessionHandler.logMe(request, response);	
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
+	
+		//TODO validation
+		if (manager.isValidLogin(username, password)) {
+			SessionHandler.setLogged(req, true);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/welcome.jsp").forward(req, resp);
+			resp.sendRedirect("login");
+		} else {
+			this.getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+		}
 	}
 
 	@Override

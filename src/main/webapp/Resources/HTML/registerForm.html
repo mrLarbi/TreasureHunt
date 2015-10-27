@@ -1,0 +1,84 @@
+<form action="register" method="post" id="registerForm" role="form" class="col-xs-offset-3">
+	<h3>Register :</h3>
+	
+	<div class="row form-group">
+	    <label class="col-xs-2 text-right" > Username : </label> 
+	    <input id="usernameInput" name= "username" type="text" class="col-xs-2" required="required"/>  
+	    <span id="usernameError" class="col-xs-3 alert-danger"> 
+             
+	    </span>
+	</div>
+	
+	<div class="row form-group">
+        <label class="col-xs-2 text-right" for="pwd"> Password : </label> 
+        <input id="passwordInput" name ="password" type="password" class="col-xs-2"required="required"/>  
+        <span id="passwordError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+        
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-xs-2 text-right"> Confirmation : </label> 
+        <input id="confirmationInput" name= "confirm" type="password" class="col-xs-2" required="required"/>  
+        <span id="confirmationError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+        
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-xs-2 text-right" for="email"> Email : </label> 
+        <input id="emailInput" name="email" type="email" class="col-xs-2" required="required"/>  
+        <span id="emailError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+        
+    </div>
+    
+    <h3>Optional :</h3>
+    
+    <div class="row form-group">
+        <label class="col-xs-2 text-right"> Name : </label> 
+        <input id="nameInput" name="name" type="text" class="col-xs-2"/>  
+        <span id="nameError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+        
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-xs-2 text-right"> Gender : </label> 
+        <span class="col-xs-2">
+	        M : <input type="radio" name="gender" value="M" checked="checked"/> 
+	        F : <input type="radio" name="gender" value= "F"/> 
+	    </span>
+        <span id="genderError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+        
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-xs-2 text-right"> Phone : </label> 
+        <input id="phoneInput" name="phone" type="number" class="col-xs-2"/>  
+        <span id="phoneError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+    </div>
+    
+    <div class="row form-group">
+        <label class="col-xs-2 text-right"> Zip code : </label> 
+        <input name="zip" id="zipcodeInput" type="number" maxlength="5" class="col-xs-2"/>  
+        <span id="zipcodeError" class="col-xs-3 alert-danger"> 
+             
+        </span>
+    </div>
+    
+    <div class="row form-group">
+        <span class="col-xs-offset-2">
+	        <input type="submit" value="Confirm" class="btn btn-default"/>
+	        <input type="reset" value="Cancel" class="btn btn-default"/>
+	    </span>
+    </div>
+</form>

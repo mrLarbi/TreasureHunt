@@ -3,25 +3,37 @@ package hibernate.managers;
 import java.util.Iterator;
 import java.util.List;
 
-import hibernate.models.entities.Coordinate;
-import hibernate.models.entities.Hunt;
-import hibernate.utility.HibernateUtility;
-import hibernate.utility.SqlDateUtility;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import hibernate.models.entities.User;
+import hibernate.objects.User;
 
-public class UserManager {
+public class ManageUsers {
 	private SessionFactory sessionFactory;
 	private Session session;
 
-	public UserManager() {
-		sessionFactory = HibernateUtility.createSessionFactory(User.class);
+	public ManageUsers() {
+		sessionFactory = createSessionFactory();
+	}
+
+	public static SessionFactory createSessionFactory() {
+		Configuration configuration = new Configuration();
+		configuration.addAnnotatedClass(User.class);
+		configuration.configure();
+
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+				.buildServiceRegistry();
+
+		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+
+		return sessionFactory;
 	}
 
 	/* Method to CREATE a user in the database */
@@ -32,8 +44,6 @@ public class UserManager {
 	public User createUser(String username, String password, String email) {
 		password = BCrypt.hashpw(password, BCrypt.gensalt(12));
 		User user = new User(username, password, email);
-		user.setCreated(SqlDateUtility.now());
-
 		return user;
 	}
 
@@ -222,6 +232,14 @@ public class UserManager {
 		}
 	}
 
+	public void addFriend(Integer userID, Integer friendID) {
+
+	}
+
+	public void removeFriend(Integer userID, Integer friendID) {
+
+	}
+
 	public void addMessage(Integer userID, Integer friendID) {
 
 	}
@@ -232,35 +250,32 @@ public class UserManager {
 
 	public static void main(String[] args) {
 
-		UserManager MU = new UserManager();
+		ManageUsers MU = new ManageUsers();
 
-		User user = MU.findUserByEmail("charles@gmail.com");
+		/* Add a few users in database */
+		int uID1 = MU.addUser("calderino", "pwd001", "juan@gmail.com");
+		int uID2 = MU.addUser("xxbluraydiscxx", "pwd002", "mohamed@gmail.com");
+		int uID3 = MU.addUser("kilimanjaro", "pwd003", "charles@gmail.com");
+		int uID4 = MU.addUser("test", "test", "test@gmail.com");
 
-		HuntManager HM = new HuntManager();
-		List<Hunt> hunts = HM.latestHunts();
-		Hunt hunt = hunts.get(1);
+		/* List down all user */
+		MU.listUsers();
 
-		Coordinate coordinate = new Coordinate();
-		coordinate.setLatitude("67.9");
-		coordinate.setLongitude("34.09");
-		coordinate.setName("Test");
+		/* Update user */
+		MU.updateUserAvatar(uID2, "momo.jpg");
 
-		CoordinateManager CM = new CoordinateManager();
+		/* Delete an user */
+		MU.deleteUser(uID4);
 
-		CM.addCoordinate(coordinate);
-
-
-		hunt.addCoordinate(coordinate);
-
-		MU.startHunting(user,hunt);
-
-		MU.checkCoordinate(user,hunt, coordinate);
-
+		/* List down new list of users */
+		MU.listUsers();
 	}
 
 	// TODO need refactoring
 	public User findUserByUsername(String username) {
 		session = sessionFactory.openSession();
+		Transaction transaction = null;
+
 		try {
 			Query query = session.createQuery("FROM User U WHERE U.username = :username");
 			query.setParameter("username", username);
@@ -282,7 +297,8 @@ public class UserManager {
 	// TODO need refactoring with method up-top
 	public User findUserByEmail(String email) {
 		session = sessionFactory.openSession();
-		
+		Transaction transaction = session.getTransaction();
+
 		try {
 			Query query = session.createQuery("FROM User U WHERE U.email = :email");
 			query.setParameter("email", email);
@@ -295,6 +311,9 @@ public class UserManager {
 
 			return user.get(0);
 		} catch (HibernateException e) {
+			if (transaction != null)
+				transaction.rollback();
+			e.printStackTrace();
 		} finally {
 			session.close();
 		}
@@ -303,32 +322,6 @@ public class UserManager {
 	}
 
 	public boolean isValidLogin(String username, String password) {
-		return find(username, password) != null;
-	}
-
-	public User findByRemember(String remember) {
-		session = sessionFactory.openSession();
-		
-		try {
-			Query query = session.createQuery("FROM User U WHERE U.remember = :remember");
-			query.setParameter("remember", remember);
-
-			List<User> user = query.list();
-
-			if (user.isEmpty()) {
-				return null;
-			}
-
-			return user.get(0);
-		} catch (HibernateException e) {
-		} finally {
-			session.close();
-		}
-
-		return null;
-	}
-
-	public User find(String username, String password) {
 		User user = findUserByUsername(username);
 
 		if (user == null) {
@@ -336,71 +329,9 @@ public class UserManager {
 		}
 
 		if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-			return user;
+			return true;
 		}
 
-		return null;
- 
-	}
-
-	public void addFriendshipBtn(User agent, User follower) {
-		session = sessionFactory.openSession();
-		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-
-			agent.getMyFollowers().add(FriendshipManager.createFriendshipBTn(agent,follower));
-			session.update(agent);
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-
-	}
-
-	public void sendMessageTo(User sender, User receiver, String content) {
-		session = sessionFactory.openSession();
-		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-			sender.getSentMessages().add(MessageManager.createMessage(sender,receiver,content));
-			session.update(sender);
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	public void startHunting(User hunter, Hunt startedHunt) {
-		// TODO
-		session = sessionFactory.openSession();
-		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-			hunter.getCurrenthunts().addAll(HuntingManager.createHunting(hunter, startedHunt));
-			session.update(hunter);
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	public void checkCoordinate(User hunter, Hunt currentHunt, Coordinate coordinate) {
-		HuntingManager.checkCoordinate(hunter, currentHunt, coordinate);
+		return false;
 	}
 }

@@ -1,10 +1,8 @@
-
-<form action="register" method="post" id="registerForm" class="form-horizontal">
-
 <div id="infoBlock" class="row">
     <div id="mandatory" class = "blackTransbg rounded container-fluid col-xs-offset-3 col-md-6">
     	<h2>Account Information</h2>
 
+        <form id="registerForm" class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-md-2" for="username">Username</label>
 	            <div class="col-xs-3 col-md-6">
@@ -29,12 +27,14 @@
                     <input type="email" class="form-control" name="email" id="email">
                 </div>
             </div>
+        </form>
     </div>
 </div>
-<div id="infoBlock" class="row" style="margin-top: 10px"> <!-- ??? -->
+<div id="infoBlock" class="row">
 	<div id="optional" class = "blackTransbg rounded container-fluid col-xs-offset-3 col-md-6">    
 	    <h2>Personal Information</h2>
 
+	    <form id="optionalForm" class="form-horizontal">
 		    <div class="form-group">
 		        <label class="control-label col-md-2" for="realname">Name</label>
 			    <div class="col-xs-3 col-md-6">
@@ -42,16 +42,16 @@
 			    </div>
 		    </div>
 		    <div class="form-group">
-		    	<label class="control-label col-md-2" for="genderbox">Gender</label>
+		    	<label class="control-label col-md-2" for="gender">Gender</label>
 		    	<div id="genderBoxes" class="col-xs-3 col-md-6">
 		            <label class="checkbox-inline">
-						<input type="radio" name ="gender" id="genderbox" value="M"> Male
+						<input type="checkbox" id="genderbox" value="option1"> Male
 					</label>
 					<label class="checkbox-inline">
-						<input type="radio" name ="gender" id="genderbox" value="F"> Female
+						<input type="checkbox" id="genderbox" value="option2"> Female
 					</label>
 					<label class="checkbox-inline">
-						<input type="radio" name ="gender" id="genderbox" value="O"> Other
+						<input type="checkbox" id="genderbox" value="option3"> Other
 					</label>
 				</div>
             </div>
@@ -67,12 +67,12 @@
                     <input type="text" class="form-control" name="zcode" id="zcode">
                 </div>
 	        </div>
+		</form>	    
 	</div>
 </div>
 <div id="buttonsBlock" class="row">
 	<div id="buttons" class="text-center container-fluid col-xs-offset-7 col-md-2">
-		<a class="btn btn-default" href="home">Cancel</a>
+		<a class="btn btn-default" href="http://localhost:8080/TreasureHunt/">Cancel</a>
 		<button id="regButton" type="sumbit" class="btn btn-primary">Register</button>
 	</div>
 </div>
-</form>
