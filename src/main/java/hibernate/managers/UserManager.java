@@ -363,6 +363,25 @@ public class UserManager {
 
 	}
 
+	public void updateRememberMe(User user, String remember) {
+		session = sessionFactory.openSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			user.setRemember(remember);
+			session.update(user);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+
 	public void sendMessageTo(User sender, User receiver, String content) {
 		session = sessionFactory.openSession();
 		Transaction tx = null;

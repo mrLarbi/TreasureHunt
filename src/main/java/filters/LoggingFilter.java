@@ -6,9 +6,10 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import backend.SessionHandler;
+import hibernate.managers.UserManager;
 import hibernate.models.entities.User;
 
-// TODO implement this 
 // Request have to be filtered for user authentication
 public class LoggingFilter implements Filter {
 
@@ -27,12 +28,18 @@ public class LoggingFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("user");
-		
+
+		if (user == null ) {
+			UserManager manager = new UserManager();
+			user = manager.findByRemember(SessionHandler.getCookie(req).getValue());
+			((HttpServletRequest) request).getSession().setAttribute("user",user);
+		}
+
 		if (user != null) {
 			chain.doFilter(request, response);
 		} else {
 			// Redirect to index page to log ins
-			context.getRequestDispatcher("index.jsp").forward(request, response);
+			context.getRequestDispatcher("/home").forward(request, response);
 		}
 			
 	}

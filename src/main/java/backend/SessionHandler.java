@@ -37,6 +37,7 @@ public class SessionHandler {
 		}
 
 		addUserToSession(request, user);
+
 		addRememberCookie(request, response,user);
 		
 		manager.addUser(user);
@@ -54,9 +55,11 @@ public class SessionHandler {
 
 			user.setRemember(toRemember);
 			cookie = new Cookie("token", user.getRemember());
-			cookie.setSecure(true); // send the cookie using a secure protocol
+			//cookie.setSecure(true); // send the cookie using a secure protocol
 			cookie.setMaxAge(7 * 60 * 60 * 24); // 7 days remember me cookie
 			response.addCookie(cookie);
+
+			System.out.println("Inside here");
 		}
 	}
 
@@ -66,15 +69,20 @@ public class SessionHandler {
 		User user = getUser(request, manager);
 
 		if (user == null) {
-			String email = request.getParameter("email");
+			String login = request.getParameter("email");
 			String password = request.getParameter("password");
-			if (Validator.isValidMail(email) && Validator.isValidPassword(password)) {
-				user = manager.find(email, password);
+			if ((Validator.isValidMail(login) || Validator.isValidUsername(login))
+					&& Validator.isValidPassword(password)) {
+				user = manager.find(login, password);
 			}
 		}
 
 		if (user != null) {
 			addUserToSession(request, user);
+			updateRemember(request,user,manager);
+
+			getCookie(request).setValue(user.getRemember());
+
 			PrintWriter writer = response.getWriter();
 			writer.write("<p> Username: " + user.getUsername()+ "</p><br>");
 			writer.write("<p> Email: " + user.getEmail() + "</p><br>");
@@ -113,6 +121,13 @@ public class SessionHandler {
 			}
 		}
 		return null;
+	}
+
+	public static void updateRemember(HttpServletRequest request, User user, UserManager manager) {
+		String login = request.getParameter("email");
+		String password = request.getParameter("password");
+		String remember = login + password + new Date();
+		manager.updateRememberMe(user,remember);
 	}
 
 	public static User createUserFromSignUpRequest(HttpServletRequest request, UserManager manager) {

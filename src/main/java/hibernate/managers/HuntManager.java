@@ -85,4 +85,18 @@ public class HuntManager {
         }
         return null;
     }
+
+    // TODO id must be a number.
+    public Hunt find(String huntId) {
+        session = sessionFactory.openSession();
+        Hunt hunt = null;
+        try {
+            hunt = (Hunt) session.get(Hunt.class, huntId);
+        } catch (HibernateException e) {
+
+        } finally {
+            session.close();
+            return hunt;
+        }
+    }
 }
