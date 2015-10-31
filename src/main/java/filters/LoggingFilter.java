@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import backend.SessionHandler;
@@ -14,12 +15,12 @@ import hibernate.models.entities.User;
 // Request have to be filtered for user authentication
 public class LoggingFilter implements Filter {
 
-	ServletContext context;
+	// ServletContext context;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		context = config.getServletContext();
+		// context = config.getServletContext();
 	}
 	
 	@Override
@@ -27,6 +28,7 @@ public class LoggingFilter implements Filter {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		HttpServletRequest req = (HttpServletRequest)request;
+		HttpServletResponse resp =(HttpServletResponse)response;
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("user");
 		Cookie cookie = SessionHandler.getCookie(req);
@@ -41,7 +43,8 @@ public class LoggingFilter implements Filter {
 			chain.doFilter(request, response);
 		} else {
 			// Redirect to index page to log ins
-			context.getRequestDispatcher("/home").forward(request, response);
+			// context.getRequestDispatcher("/home").forward(request, response);
+			resp.sendRedirect("/home");
 		}
 			
 	}
@@ -49,7 +52,7 @@ public class LoggingFilter implements Filter {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		context = null;
+		// context = null;
 	}
 
 }
