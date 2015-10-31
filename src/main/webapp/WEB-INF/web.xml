@@ -114,6 +114,10 @@
             <param-name>denyStatus</param-name>
             <param-value>403</param-value>
         </init-param>
+        <init-param>
+            <param-name>entryPoints</param-name>
+            <param-value>/home</param-value>
+        </init-param>
     </filter>
 
     <filter>
@@ -123,7 +127,7 @@
 
     <filter-mapping>
         <filter-name>CsrfFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/home/*,/user/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
