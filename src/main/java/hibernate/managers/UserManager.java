@@ -422,4 +422,18 @@ public class UserManager {
 	public void checkCoordinate(User hunter, Hunt currentHunt, Coordinate coordinate) {
 		HuntingManager.checkCoordinate(hunter, currentHunt, coordinate);
 	}
+
+	public User find(String userId) {
+		User user = null;
+		session = sessionFactory.openSession();
+
+		try {
+			user = (User)session.get(User.class,userId);
+		} catch (HibernateException e) {
+		} finally {
+			session.close();
+		}
+
+		return user;
+	}
 }

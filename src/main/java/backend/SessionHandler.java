@@ -14,13 +14,15 @@ import hibernate.models.entities.User;
 
 public class SessionHandler {
 
-	public static void logOut(HttpServletRequest request, HttpServletResponse response) {
+	public static void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Cookie cookie = getCookie(request);
 		if (cookie != null) {
 			cookie.setMaxAge(0);
 			cookie.setValue(null);
 			response.addCookie(cookie);
 		}
+		SessionHandler.setUser(request,null);
+		request.getRequestDispatcher("/home").forward(request, response);
 	}
 
 	public static boolean signUp(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -58,18 +60,16 @@ public class SessionHandler {
 			//cookie.setSecure(true); // send the cookie using a secure protocol
 			cookie.setMaxAge(7 * 60 * 60 * 24); // 7 days remember me cookie
 			response.addCookie(cookie);
-
-			System.out.println("Inside here");
 		}
 	}
 
 	public static void logMe(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		UserManager manager = new UserManager();
-		User user = getUser(request, manager);
+		User user = getUserFromRememberCookie(request, manager);
 
 		if (user == null) {
-			String login = request.getParameter("email");
+			String login = request.getParameter("login");
 			String password = request.getParameter("password");
 			if ((Validator.isValidMail(login) || Validator.isValidUsername(login))
 					&& Validator.isValidPassword(password)) {
@@ -93,6 +93,8 @@ public class SessionHandler {
 
 			writer.write("<p> List of sent messages: " + user.getSentMessages()+ "</p><br>");
 			writer.write("<p> List of received messages: " + user.getReceivedMessages() + "</p><br>");
+
+			writer.write("<a href=\"logout\"> Log out </a>");
 			// session.
 			// response.sendRedirect("login"); // Go to start page.
 		} else {
@@ -107,7 +109,7 @@ public class SessionHandler {
 	public static void addUserToSession (HttpServletRequest request, User user) {
 		request.getSession().setAttribute("user", user);
 	}
-	public static User getUser(HttpServletRequest request, UserManager manager) {
+	public static User getUserFromRememberCookie(HttpServletRequest request, UserManager manager) {
 		Cookie cookie = getCookie(request);
 		String remember = cookie != null ? cookie.getValue() : "";
 		return manager.findByRemember(remember);
@@ -165,7 +167,14 @@ public class SessionHandler {
 	}
 
 	public static boolean checkSessionLogged(HttpServletRequest request) {
-		return request.getSession().getAttribute("user") != null;
+		return SessionHandler.getUser(request) != null;
 	}
 
+	public static User getUser(HttpServletRequest request) {
+		return (User) request.getSession().getAttribute("user");
+	}
+
+	public static void setUser(HttpServletRequest request, User user) {
+		request.getSession().setAttribute("user",user);
+	}
 }

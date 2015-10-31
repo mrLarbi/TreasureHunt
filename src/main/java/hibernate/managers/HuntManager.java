@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,7 +87,6 @@ public class HuntManager {
         return null;
     }
 
-    // TODO id must be a number.
     public Hunt find(String huntId) {
         session = sessionFactory.openSession();
         Hunt hunt = null;
@@ -97,6 +97,12 @@ public class HuntManager {
         } finally {
             session.close();
             return hunt;
+        }
+    }
+
+    public void addCoordinatesToHunt(Hunt hunt, ArrayList<Coordinate> coordinates) {
+        for(Coordinate coord: coordinates) {
+            addCoordinateToHunt(hunt,coord);
         }
     }
 }

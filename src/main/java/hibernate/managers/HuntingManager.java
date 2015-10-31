@@ -55,7 +55,7 @@ public class HuntingManager {
             Query query = session.createQuery("FROM Hunter H WHERE H.hunting.hunter.id = :hunter_id " +
                     "AND H.hunting.hunt.id = :hunt_id" + " AND H.hunting.huntedPoint.id = :coord_id");
 
-           query.setParameter("hunter_id", hunter.getId());
+            query.setParameter("hunter_id", hunter.getId());
             query.setParameter("hunt_id", hunt.getId());
             query.setParameter("coord_id", coordinate.getId());
 

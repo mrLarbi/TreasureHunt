@@ -1,9 +1,7 @@
 package servlets;
 
 import backend.SessionHandler;
-import hibernate.managers.HuntManager;
 import hibernate.managers.UserManager;
-import hibernate.models.entities.Hunt;
 import hibernate.models.entities.User;
 
 import javax.servlet.ServletException;
@@ -13,18 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Machi on 30/10/2015.
+ * Created by Machi on 31/10/2015.
  */
-public class StartHunt extends HttpServlet{
+public class FollowUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User hunter = SessionHandler.getUser(req);
-        String huntId = req.getParameter("hunt");
+        User currentUser  = SessionHandler.getUser(req);
+        UserManager uManager = new UserManager();
 
-        HuntManager manager = new HuntManager();
-        Hunt hunt = manager.find(huntId);
+        User agent = uManager.find(req.getParameter("user"));
 
-        UserManager userManager = new UserManager();
-        userManager.startHunting(hunter,hunt);
+        if (agent != null) {
+            uManager.addFriendshipBtn(agent,currentUser);
+        } else {
+            // Error message
+        }
+
+        // TODO notify user
+
     }
 }

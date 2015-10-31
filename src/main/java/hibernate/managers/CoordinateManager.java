@@ -1,11 +1,12 @@
 package hibernate.managers;
 
 import hibernate.models.entities.Coordinate;
+import hibernate.models.entities.Hunter;
 import hibernate.utility.HibernateUtility;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mohameddd on 10/18/15.
@@ -42,6 +43,35 @@ public class CoordinateManager {
         }
 
         return coordID;
+    }
+
+    public Coordinate findCoord(String name, String latitude, String longitude) {
+
+        session = sessionFactory.openSession();
+
+        List<Coordinate> coordinates = new ArrayList<>();
+
+        try {
+            Query query = session.createQuery("FROM Coordinate Coord WHERE Coord.name = :name " +
+                    "AND Coord.latitude = :latitude" + " AND Coord.longitude = :longitude");
+
+            query.setParameter("name", name);
+            query.setParameter("latitude", longitude);
+            query.setParameter("longitude", longitude);
+
+            query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+            coordinates = query.list();
+
+        } catch (HibernateException e) {
+        } finally {
+            session.close();
+        }
+
+        if (coordinates.isEmpty()) {
+            return null;
+        } else {
+            return coordinates.get(0);
+        }
     }
 
 }

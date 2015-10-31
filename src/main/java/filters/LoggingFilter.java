@@ -29,14 +29,15 @@ public class LoggingFilter implements Filter {
 		// TODO Auto-generated method stub
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp =(HttpServletResponse)response;
-		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("user");
+
+		User user = SessionHandler.getUser(req);
+
 		Cookie cookie = SessionHandler.getCookie(req);
 
 		if (user == null && cookie != null) {
 			UserManager manager = new UserManager();
 			user = manager.findByRemember(cookie.getValue());
-			((HttpServletRequest) request).getSession().setAttribute("user",user);
+			SessionHandler.setUser(req,user);
 		}
 
 		if (user != null) {
