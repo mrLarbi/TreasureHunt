@@ -3,6 +3,7 @@ package filters;
 import java.io.IOException;
 
 import javax.servlet.*;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,10 +29,11 @@ public class LoggingFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("user");
+		Cookie cookie = SessionHandler.getCookie(req);
 
-		if (user == null ) {
+		if (user == null && cookie != null) {
 			UserManager manager = new UserManager();
-			user = manager.findByRemember(SessionHandler.getCookie(req).getValue());
+			user = manager.findByRemember(cookie.getValue());
 			((HttpServletRequest) request).getSession().setAttribute("user",user);
 		}
 
