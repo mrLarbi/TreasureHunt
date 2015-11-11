@@ -23,7 +23,8 @@ $(document).ready(function () {
             username: {
                 required: true,
                 minlength: 6,
-                maxlength: 30
+                maxlength: 30,
+                remote: "/available"
             },
             password: {
                 required: true,
@@ -53,7 +54,8 @@ $(document).ready(function () {
         },
         messages: {
             username: {
-                required: "You need have a username to login."
+                required: "You need have a username to login.",
+                remote: "This username is already taken."
             },
             password: {
                 required: "You need a password to protect your account.",
