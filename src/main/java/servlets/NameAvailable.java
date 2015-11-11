@@ -26,13 +26,12 @@ public class NameAvailable extends HttpServlet {
 		String requestedName = request.getParameter("username");
 		Writer writer = response.getWriter();
 		response.setContentType("application/json");
-		JsonObject availabilityJsonObject = Json.createObjectBuilder().add("available", false).build(); 
+		JsonObject availabilityJsonObject = Json.createObjectBuilder().add("result", false).build();
 		
 		if  (manager.findUserByUsername(requestedName) == null ) {
-			availabilityJsonObject = Json.createObjectBuilder().add("available", true).build();
+			availabilityJsonObject = Json.createObjectBuilder().add("result", true).build();
 		}
-		
-		
+
 		writer.write(availabilityJsonObject.toString());
 	}
 
