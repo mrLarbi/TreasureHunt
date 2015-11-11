@@ -2,8 +2,25 @@ $.validator.addMethod("regx", function(value, element, regexpr) {
     return regexpr.test(value);
 }, "Your input is not accepted.");
 
-$(document).ready(function () {
+$.validator.addMethod("is_available", function(value,element) {
+    var values ={};
+    values['username'] = value;
 
+    $.ajax({
+            type: "GET",
+            url: "available",
+            dataType: "json",
+            data: values,
+            success: function(data) {
+                return data.result;
+            },
+            error: function(result) {
+                return false;
+            }
+        });
+}, "This username is already taken.");
+
+$(document).ready(function () {
     $('#regButton').click(function() {
         $('#registerForm').valid();
     });
@@ -24,7 +41,16 @@ $(document).ready(function () {
                 required: true,
                 minlength: 6,
                 maxlength: 30,
-                remote: "/available"
+                remote: {
+                    url: 'available',
+                    type: 'POST',
+                    data: {
+                        'username': function () {
+                            return $('#username').val();
+                        }
+                    },
+                    dataType: 'json'
+                }
             },
             password: {
                 required: true,

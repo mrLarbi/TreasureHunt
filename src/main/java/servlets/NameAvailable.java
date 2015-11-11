@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import hibernate.managers.UserManager;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-
 
 public class NameAvailable extends HttpServlet {
 	/**
@@ -26,13 +23,13 @@ public class NameAvailable extends HttpServlet {
 		String requestedName = request.getParameter("username");
 		Writer writer = response.getWriter();
 		response.setContentType("application/json");
-		JsonObject availabilityJsonObject = Json.createObjectBuilder().add("result", false).build();
-		
+
 		if  (manager.findUserByUsername(requestedName) == null ) {
-			availabilityJsonObject = Json.createObjectBuilder().add("result", true).build();
+			writer.write(new Boolean(true).toString());
+		} else {
+			writer.write(new Boolean(false).toString());
 		}
 
-		writer.write(availabilityJsonObject.toString());
 	}
 
 	@Override
