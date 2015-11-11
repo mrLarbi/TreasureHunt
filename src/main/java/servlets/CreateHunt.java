@@ -21,7 +21,7 @@ public class CreateHunt extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-    	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/register.jsp").forward(request, response);
+    	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/createhunt.jsp").forward(request, response);
     	
     	User currentUser = SessionHandler.getUser(request);
 
