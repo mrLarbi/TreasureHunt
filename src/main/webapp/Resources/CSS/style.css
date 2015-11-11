@@ -28,3 +28,13 @@ h2 {
 .rounded {
     border-radius: 10px;
 }
+
+.userimage {
+	height: 10%;
+	padding: 10px;
+}
+
+.slightlycentered {
+	margin-right: 2%;
+	margin-left: 2%;
+}
