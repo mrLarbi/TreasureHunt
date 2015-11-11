@@ -1,14 +1,11 @@
-<form id="loginForm" method="post" action ="login" class="rounded blackTransbg">
+<form id="loginForm" class="rounded blackTransbg">
 	<div class="form-group">
-   		<label for="email">Login</label>
-   		<input class="form-control" name="login" data-rule-required="true"
-			   id="email" placeholder="Username or email">
+   		<label for="inputEmail">Login</label>
+   		<input type="email" class="form-control" id="email" placeholder="username or email">
 	</div>
 	<div class="form-group">
-   		<label for="password">Password</label>
-   		<input type="password" class="form-control" name = "password"
-			   data-rule-required ="true" data-rule-minlength ="6"
-			   id="password" placeholder="password">
+   		<label for="inputPassword1">Password</label>
+   		<input type="password" class="form-control" id="password" placeholder="password">
 	</div>
 	<div class="text-center">
 		<button type="submit" class="btn btn-default">Sign In</button>

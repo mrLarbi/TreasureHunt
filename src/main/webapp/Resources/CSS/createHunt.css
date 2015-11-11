@@ -1,0 +1,15 @@
+a#huntTitle { 
+	font-family: 'Dancing Script', cursive;
+	font-size: 72px;
+	color: white;
+}
+
+.editableInput {
+	height: 10%;
+	font-size: 32px;
+	width: 700px !important;
+}
+
+.editable-buttons {
+	display: none !important;
+}

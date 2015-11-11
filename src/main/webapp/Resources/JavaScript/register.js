@@ -7,7 +7,6 @@ $(document).ready(function () {
 	$('#regButton').click(function() {
     	$('#registerForm').valid();
     	$('#optionalForm').valid();
-		$('#registerForm').submit();
 	});
 
 	$('input#genderbox').change(function(event) {
