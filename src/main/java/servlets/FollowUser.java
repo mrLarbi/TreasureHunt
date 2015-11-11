@@ -19,7 +19,7 @@ public class FollowUser extends HttpServlet {
         User currentUser  = SessionHandler.getUser(req);
         UserManager uManager = new UserManager();
 
-        User agent = uManager.find(req.getParameter("user"));
+        User agent = uManager.find(Integer.parseInt(req.getParameter("user")));
 
         if (agent != null) {
             uManager.addFriendshipBtn(agent,currentUser);

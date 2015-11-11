@@ -234,7 +234,7 @@ public class UserManager {
 
 		UserManager MU = new UserManager();
 
-		User user = MU.findUserByEmail("charles@gmail.com");
+		User user = MU.find(8);
 
 		HuntManager HM = new HuntManager();
 		List<Hunt> hunts = HM.latestHunts();
@@ -423,7 +423,7 @@ public class UserManager {
 		HuntingManager.checkCoordinate(hunter, currentHunt, coordinate);
 	}
 
-	public User find(String userId) {
+	public User find(Integer userId) {
 		User user = null;
 		session = sessionFactory.openSession();
 

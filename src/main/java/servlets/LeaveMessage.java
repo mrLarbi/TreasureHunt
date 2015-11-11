@@ -28,7 +28,7 @@ public class LeaveMessage extends HttpServlet {
 
         UserManager  uManager = new UserManager();
 
-        User receiver = uManager.find(to);
+        User receiver = uManager.find(Integer.parseInt(to));
 
         if (receiver != null) {
             uManager.sendMessageTo(currentUser,receiver, messageContent);
