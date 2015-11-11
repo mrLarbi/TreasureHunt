@@ -23,15 +23,6 @@ public class CreateHunt extends HttpServlet{
         
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/createhunt.jsp").forward(request, response);
     	
-    	User currentUser = SessionHandler.getUser(request);
-
-        String name = request.getParameter("name");
-
-        HuntManager manager = new HuntManager();
-        Hunt  hunt = manager.createHunt(name,currentUser);
-
-        manager.addCoordinatesToHunt(hunt,getCoordsFromRequest(request));
-        manager.addHunt(hunt);
     }
 
 
@@ -48,6 +39,16 @@ public class CreateHunt extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        User currentUser = SessionHandler.getUser(request);
+
+        String name = request.getParameter("name");
+
+        HuntManager manager = new HuntManager();
+        Hunt  hunt = manager.createHunt(name,currentUser);
+
+        manager.addCoordinatesToHunt(hunt,getCoordsFromRequest(request));
+        manager.addHunt(hunt);
+
+        this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/displayhunt.jsp").forward(request, response);
     }
 }
