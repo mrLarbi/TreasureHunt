@@ -20,7 +20,10 @@ import java.util.ArrayList;
 public class CreateHunt extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User currentUser = SessionHandler.getUser(request);
+        
+    	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/register.jsp").forward(request, response);
+    	
+    	User currentUser = SessionHandler.getUser(request);
 
         String name = request.getParameter("name");
 
