@@ -1,13 +1,13 @@
 <h1> Messages </h1>
 <div>
-	<img src="yolo"/>
-	<p> Ta chasse elle est aussi nulle que Garland </p>
+	<img src="yolo" class="userimage"/>
+	<span> Ta chasse elle est aussi nulle que Garland </span>
 </div>
 <div>
-	<img src="yolo"/>
-	<p> Ca va ta chasse elle ressemble à Mario Galaxy </p>
+	<img src="yolo" class="userimage"/>
+	<span> Ca va ta chasse elle ressemble à Mario Galaxy </span>
 </div>
 <div>
-	<img src="yolo"/>
-	<p> J'ai fait ta chasse et je me suis retrouvé à la zone 51 </p>
+	<img src="yolo" class="userimage"/>
+	<span> J'ai fait ta chasse et je me suis retrouvé à la zone 51 </span>
 </div>

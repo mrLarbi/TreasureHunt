@@ -1,9 +1,9 @@
 <h1> Friends </h1>
 <ul>
 	<li> 
-		<img src=""> <p> Charles </p>
+		<img src="" class="userimage"> <span> Charles </span>
 	</li>
 	<li> 
-		<img src=""> <p> Mohamed </p>
+		<img src="" class="userimage"> <span> Mohamed </span>
 	</li>
 </ul>
