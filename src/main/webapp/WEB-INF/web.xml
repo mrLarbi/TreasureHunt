@@ -70,6 +70,10 @@
         <servlet-class>servlets.CreateHunt</servlet-class>
     </servlet>
 
+	<servlet>
+        <servlet-name>hunt</servlet-name>
+        <servlet-class>servlets.DisplayHunt</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>checkpoint</servlet-name>
@@ -131,6 +135,11 @@
     <servlet-mapping>
         <servlet-name>createhunt</servlet-name>
         <url-pattern>/user/createhunt</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>hunt</servlet-name>
+        <url-pattern>/hunt</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
