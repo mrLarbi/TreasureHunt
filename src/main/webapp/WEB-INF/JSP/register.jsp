@@ -3,8 +3,11 @@
     <body>
         <%@include file="/Resources/HTML/pageHeader.html"%>
 
+        <c:set var ="url" value="${root}/register"/>
+
         <div class = "container-fluid">
-            <form id="registerForm" class="form-horizontal" method="POST" action="${root}/register">
+            <form id="registerForm" class="form-horizontal" method="POST"
+                action="<c:out value="${pageContext.response.encodeURL(url)}"/>">
                 <div id="infoBlock" class="row">
                     <div id="mandatory" class = "blackTransbg rounded container-fluid col-xs-offset-3 col-md-6">
                         <h2>Account Information</h2>

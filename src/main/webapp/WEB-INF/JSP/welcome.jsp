@@ -12,7 +12,8 @@
 							style="visibility: hidden"
 						</c:if>
 						>
-					<form id="loginForm" class="rounded blackTransbg" action="${root}/login" method="post">
+						<c:set var ="url" value="${root}/login"/>
+					<form id="loginForm" class="rounded blackTransbg" action="<c:out value="${pageContext.response.encodeURL(url)}"/>" method="post">
 						<div class="form-group">
 							<label for="email">Login</label>
 							<input class="form-control" name="login" id="email" placeholder="Username or email"/>
