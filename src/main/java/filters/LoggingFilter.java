@@ -14,13 +14,14 @@ import hibernate.models.entities.User;
 
 // Request have to be filtered for user authentication
 public class LoggingFilter implements Filter {
+	private ServletContext context;
 
 	// ServletContext context;
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		// context = config.getServletContext();
+		context = config.getServletContext();
 	}
 	
 	@Override
@@ -44,8 +45,8 @@ public class LoggingFilter implements Filter {
 			chain.doFilter(request, response);
 		} else {
 			// Redirect to index page to log ins
-			// context.getRequestDispatcher("/home").forward(request, response);
-			resp.sendRedirect("/home");
+			context.getRequestDispatcher("/home").forward(request, response);
+
 		}
 			
 	}

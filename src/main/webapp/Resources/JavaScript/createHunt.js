@@ -19,14 +19,8 @@ $(document).ready(function () {
        	inputclass: 'editableInput'
     });
 
-    $( "#cancel" ).click(function() {
-  		var cancel = {method:"cancel"};
-  		$.post("/TreasureHunt/createhunt", JSON.stringify(cancel), function(response) {});
-  		console.log(JSON.stringify(cancel));
-	});
-
 	$( "#create" ).click(function() {
-  		var create = {method:"create"};
+  		var create = {};
   		var points = {};
   		var i;
   		for(i = 0; i < addedPoints.length; i++) {
@@ -40,9 +34,11 @@ $(document).ready(function () {
   			points[i].lng = lng;
   		}
 
+		create["name"] = $('#huntTitle').text();
+		console.log($('#huntTitle').text());
   		create["points"] = points;
 
-  		$.post("/TreasureHunt/createhunt", JSON.stringify(create), function(response) {});
+  		$.post("/TreasureHunt/user/createhunt", create, function(response) {});
   		console.log(JSON.stringify(create));
 	});
 });

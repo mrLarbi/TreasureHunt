@@ -93,7 +93,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.avatar = "default.jpg";
+		this.avatar = "defaultAvatar.png";
 		this.gender = 'N'; //NONE
 		this.createdhunts = new HashSet<>();
 		this.createdhunts = new HashSet<>();

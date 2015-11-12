@@ -5,13 +5,14 @@ import hibernate.managers.HuntManager;
 import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
 import hibernate.models.entities.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -26,10 +27,30 @@ public class CreateHunt extends HttpServlet{
     }
 
 
-    private ArrayList<Coordinate> getCoordsFromRequest(HttpServletRequest request) {
+    private ArrayList<Coordinate> parseRequest(HttpServletRequest request) {
         ArrayList<Coordinate> coordinates = new ArrayList<>();
+        Coordinate coordinate;
 
-        String jsonCoords = request.getParameter("coords");
+        String points = request.getParameter("points");
+
+        System.out.println(points);
+
+        JSONArray jPoints = new JSONArray(points);
+        JSONObject jPoint;
+
+        String coordName;
+        String coordLat;
+        String coordLng;
+
+        for (int i= 0; i < jPoints.length(); ++i) {
+               jPoint = jPoints.getJSONObject(i);
+               coordName = jPoint.getString("name");
+               coordLat = jPoint.getString("lat");
+               coordLng = jPoint.getString("lng");
+
+            coordinate = new Coordinate(coordName,coordLat,coordLng, "");
+            coordinates.add(coordinate);
+        }
 
         //TODO parse json data and results in coordinates
 
@@ -46,7 +67,7 @@ public class CreateHunt extends HttpServlet{
         HuntManager manager = new HuntManager();
         Hunt  hunt = manager.createHunt(name,currentUser);
 
-        manager.addCoordinatesToHunt(hunt,getCoordsFromRequest(request));
+        manager.addCoordinatesToHunt(hunt, parseRequest(request));
         manager.addHunt(hunt);
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/displayhunt.jsp").forward(request, response);
