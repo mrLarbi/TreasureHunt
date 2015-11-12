@@ -1,5 +1,5 @@
 <div class="row">
-		<span> <img src="Resources/Images/defaultAvatar.png" class="userimage"></img></span> 
+		<span> <img src="${root}/Resources/Images/defaultAvatar.png" class="userimage"></img></span>
 		<span> ${ username } </span> 
 	</div>
 
