@@ -26,7 +26,7 @@ $(document).ready(function () {
   		var i;
   		for(i = 0; i < addedPoints.length; i++) {
   			points[i] = {}
-  			points[i].name = addedPoints[i].id;
+  			points[i].name = addedPoints[i].name;
 
   			var lat = addedPoints[i].id.split(",")[0];
   			var lng = addedPoints[i].id.split(",")[1];

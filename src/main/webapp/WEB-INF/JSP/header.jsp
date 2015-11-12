@@ -21,4 +21,5 @@
   <script type="text/javascript" src="${root}/Resources/JavaScript/register.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js"></script>
   <script type="text/javascript" src="${root}/Resources/JavaScript/createHunt.js"></script>
+  <script type="text/javascript" src="${root}/Resources/JavaScript/displayHunt.js"></script>
 </head>
