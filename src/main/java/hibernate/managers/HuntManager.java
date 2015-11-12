@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -104,5 +105,22 @@ public class HuntManager {
         for(Coordinate coord: coordinates) {
             addCoordinateToHunt(hunt,coord);
         }
+    }
+
+    public List<Hunt> getLastFiveHunts() {
+        List<Hunt> hunts = latestHunts();
+        int length = hunts.size();
+        if (length <6 ) {
+            Collections.reverse(hunts);
+            return hunts;
+        }
+
+        List<Hunt> desiredFive = new ArrayList<>();
+
+        for(int i = 0; i < 4 ; i++) {
+            desiredFive.add(hunts.get(length-1-i));
+        }
+
+        return desiredFive;
     }
 }
