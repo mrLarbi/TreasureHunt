@@ -20,8 +20,7 @@ public class Login extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-		SessionHandler.logMe(request, response);	
+		SessionHandler.logMe(request, response);
 	}
 
 	@Override

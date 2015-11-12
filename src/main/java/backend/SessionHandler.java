@@ -42,11 +42,15 @@ public class SessionHandler {
 
 		addRememberCookie(request, response,user);
 		
-		manager.addUser(user);
-		writer.write("Registration success");
-		
-		return true;
+		Integer id = manager.addUser(user);
 
+		if (id != null)  {
+			// successfully added.
+			request.getRequestDispatcher("/user/profile").forward(request,response);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public static void addRememberCookie(HttpServletRequest request, HttpServletResponse response, User user) {
@@ -83,19 +87,8 @@ public class SessionHandler {
 
 			getCookie(request).setValue(user.getRemember());
 
-			PrintWriter writer = response.getWriter();
-			writer.write("<p> Username: " + user.getUsername()+ "</p><br>");
-			writer.write("<p> Email: " + user.getEmail() + "</p><br>");
-
-			writer.write("<p> Signed up at: " + user.getCreated().toLocalDate().toString() + "</p><br>");
-			writer.write("<p> Followed by: " + user.getMyFollowers() + "</p><br>");
-			writer.write("<p> Follows: " + user.getListOFfollowed() + "</p>");
-
-			writer.write("<p> List of sent messages: " + user.getSentMessages()+ "</p><br>");
-			writer.write("<p> List of received messages: " + user.getReceivedMessages() + "</p><br>");
-
-			writer.write("<a href=\"logout\"> Log out </a>");
-			// session.
+			request.getRequestDispatcher("/user/profile").forward(request,response);
+		// session.
 			// response.sendRedirect("login"); // Go to start page.
 		} else {
 			// Set error msg for ${error}
