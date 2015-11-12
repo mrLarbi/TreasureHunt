@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 	$( "#create" ).click(function() {
   		var create = {};
-  		var points = {};
+  		var points = [];
   		var i;
   		for(i = 0; i < addedPoints.length; i++) {
   			points[i] = {}
@@ -35,12 +35,15 @@ $(document).ready(function () {
   			points[i].lng = lng;
   		}
 
+
 		create["name"] = $('#huntTitle').text();
 		console.log($('#huntTitle').text());
   		create["points"] = points;
 
-  		$.post("/TreasureHunt/user/createhunt", create, function(response) {});
-  		console.log(JSON.stringify(create));
+		var params = {param:JSON.stringify(create)};
+
+		$.post("/TreasureHunt/user/createhunt",params, function(response) {});
+  		console.log(JSON.stringify(params));
 	});
 });
 

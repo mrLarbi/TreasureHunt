@@ -27,13 +27,11 @@ public class SessionHandler {
 
 	public static boolean signUp(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		UserManager manager = new UserManager();
-		PrintWriter writer = response.getWriter();
 
 		User user = createUserFromSignUpRequest(request, manager);
 
 		if (user == null) {
 			// Login errors
-
 			request.getRequestDispatcher("/home").forward(request, response);
 			return false;
 		}
@@ -61,10 +59,13 @@ public class SessionHandler {
 
 			user.setRemember(toRemember);
 			cookie = new Cookie("token", user.getRemember());
-			//cookie.setSecure(true); // send the cookie using a secure protocol
-			cookie.setMaxAge(7 * 60 * 60 * 24); // 7 days remember me cookie
 			response.addCookie(cookie);
+		} else {
+			cookie.setValue(user.getRemember());
 		}
+
+		//cookie.setSecure(true); // send the cookie using a secure protocol
+		cookie.setMaxAge(7 * 60 * 60 * 24); // 7 days remember me cookie
 	}
 
 	public static void logMe(HttpServletRequest request, HttpServletResponse response)

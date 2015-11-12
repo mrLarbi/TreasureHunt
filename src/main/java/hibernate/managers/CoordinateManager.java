@@ -19,7 +19,7 @@ public class CoordinateManager {
         sessionFactory = HibernateUtility.createSessionFactory(Coordinate.class);
     }
 
-    public Coordinate createCoordinate(String name, String latitude, String longitude, String image) {
+    public static Coordinate createCoordinate(String name, String latitude, String longitude, String image) {
         Coordinate coordinate = new Coordinate(name, latitude,longitude,image);
         return coordinate;
     }
@@ -74,4 +74,9 @@ public class CoordinateManager {
         }
     }
 
+    public void addCoordinates(ArrayList<Coordinate> coordinates) {
+        for(Coordinate coord:coordinates) {
+            addCoordinate(coord);
+        }
+    }
 }

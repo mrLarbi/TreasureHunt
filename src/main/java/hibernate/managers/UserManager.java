@@ -29,7 +29,7 @@ public class UserManager {
 		return addUser(createUser(username, password, email));
 	}
 
-	public User createUser(String username, String password, String email) {
+	public static User createUser(String username, String password, String email) {
 		password = BCrypt.hashpw(password, BCrypt.gensalt(12));
 		User user = new User(username, password, email);
 		user.setCreated(SqlDateUtility.now());

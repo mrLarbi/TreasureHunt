@@ -1,6 +1,7 @@
 package servlets;
 
 import backend.SessionHandler;
+import hibernate.managers.CoordinateManager;
 import hibernate.managers.HuntManager;
 import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
@@ -26,16 +27,15 @@ public class CreateHunt extends HttpServlet{
     	
     }
 
+    private JSONObject parseRequestParams(HttpServletRequest request) {
+        return new JSONObject(request.getParameter("param"));
+    }
 
-    private ArrayList<Coordinate> parseRequest(HttpServletRequest request) {
+    private ArrayList<Coordinate> getCoordinates(JSONObject params) {
         ArrayList<Coordinate> coordinates = new ArrayList<>();
         Coordinate coordinate;
 
-        String points = request.getParameter("points");
-
-        System.out.println(points);
-
-        JSONArray jPoints = new JSONArray(points);
+        JSONArray jPoints = params.getJSONArray("points");
         JSONObject jPoint;
 
         String coordName;
@@ -48,7 +48,7 @@ public class CreateHunt extends HttpServlet{
                coordLat = jPoint.getString("lat");
                coordLng = jPoint.getString("lng");
 
-            coordinate = new Coordinate(coordName,coordLat,coordLng, "");
+            coordinate = CoordinateManager.createCoordinate(coordName,coordLat,coordLng, "");
             coordinates.add(coordinate);
         }
 
@@ -62,13 +62,23 @@ public class CreateHunt extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User currentUser = SessionHandler.getUser(request);
 
-        String name = request.getParameter("name");
+        JSONObject params = parseRequestParams(request);
+
+        String name = params.getString("name");
 
         HuntManager manager = new HuntManager();
         Hunt  hunt = manager.createHunt(name,currentUser);
 
-        manager.addCoordinatesToHunt(hunt, parseRequest(request));
+        ArrayList<Coordinate> coordinates = getCoordinates(params);
+
+        CoordinateManager coordinateManager = new CoordinateManager();
+
+        coordinateManager.addCoordinates(coordinates);
+
         manager.addHunt(hunt);
+
+        manager.addCoordinatesToHunt(hunt, coordinates);
+
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/displayhunt.jsp").forward(request, response);
     }

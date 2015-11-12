@@ -29,7 +29,7 @@ public class HuntManager {
         sessionFactory = HibernateUtility.createSessionFactory(Hunt.class);
     }
 
-    public Hunt createHunt(String name, User creator) {
+    public static Hunt createHunt(String name, User creator) {
         Hunt hunt = new Hunt();
         hunt.setCreator(creator);
         hunt.setCreatedAt(SqlDateUtility.now());
@@ -85,7 +85,7 @@ public class HuntManager {
               } finally {
             session.close();
         }
-        return null;
+        return Collections.emptyList();
     }
 
     public Hunt find(String huntId) {
