@@ -254,7 +254,7 @@ public class UserManager {
 
 		MU.startHunting(user,hunt);
 
-		MU.checkCoordinate(user,hunt, coordinate);
+		MU.checkCoordinate(user,hunt, coordinate.getLatitude(),coordinate.getLongitude(),true);
 
 	}
 
@@ -419,8 +419,8 @@ public class UserManager {
 		}
 	}
 
-	public void checkCoordinate(User hunter, Hunt currentHunt, Coordinate coordinate) {
-		HuntingManager.checkCoordinate(hunter, currentHunt, coordinate);
+	public boolean checkCoordinate(User hunter, Hunt currentHunt, String latitude, String longitude, boolean value) {
+		return HuntingManager.checkCoordinate(hunter, currentHunt,latitude,longitude,value);
 	}
 
 	public User find(Integer userId) {

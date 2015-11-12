@@ -44,7 +44,7 @@ public class HuntingManager {
             return created;
     }
 
-    public static void checkCoordinate(User hunter, Hunt hunt, Coordinate coordinate) {
+    public static boolean checkCoordinate(User hunter, Hunt hunt, String latitude, String longitude, boolean value) {
         // TODO
         session = sessionFactory.openSession();
 
@@ -53,11 +53,13 @@ public class HuntingManager {
         try {
             tx = session.beginTransaction();
             Query query = session.createQuery("FROM Hunter H WHERE H.hunting.hunter.id = :hunter_id " +
-                    "AND H.hunting.hunt.id = :hunt_id" + " AND H.hunting.huntedPoint.id = :coord_id");
+                    "AND H.hunting.hunt.id = :hunt_id" + " AND H.hunting.huntedPoint.latitude = :lat" +
+                    " AND H.hunting.huntedPoint.longitude = :lng");
 
             query.setParameter("hunter_id", hunter.getId());
             query.setParameter("hunt_id", hunt.getId());
-            query.setParameter("coord_id", coordinate.getId());
+            query.setParameter("lat", latitude);
+            query.setParameter("lng",longitude);
 
 
             query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -65,20 +67,21 @@ public class HuntingManager {
             List<Hunter> huntings = query.list();
 
             if (huntings.isEmpty()) {
-                return;
+                return true;
             }
             Hunter hunting = huntings.get(0);
 
-            hunting.setFinished(true);
+            hunting.setFinished(value);
             session.update(hunting);
             tx.commit();
+            return true;
         } catch (HibernateException e) {
             if (tx != null)
                 tx.rollback();
             e.printStackTrace();
+            return false;
         } finally {
             session.close();
         }
-
     }
 }
