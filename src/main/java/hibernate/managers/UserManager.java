@@ -5,6 +5,7 @@ import java.util.List;
 
 import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
+import hibernate.models.entities.Message;
 import hibernate.utility.HibernateUtility;
 import hibernate.utility.SqlDateUtility;
 import org.hibernate.HibernateException;
@@ -222,17 +223,32 @@ public class UserManager {
 		}
 	}
 
-	public void addMessage(Integer userID, Integer friendID) {
-
-	}
-
-	public void removeMessage(Integer userID, Integer friendID) {
-
-	}
-
 	public static void main(String[] args) {
 
-		UserManager MU = new UserManager();
+		UserManager um = new UserManager();
+
+		um.addUser("Charles", "Charles1234", "charles@gmail.com");
+		um.addUser("Juan", "Juan1234", "juan@gmail.com");
+		um.addUser("Mohamed", "Mohamed1234", "mohamed@gmail.com");
+
+		User mohamed = um.findUserByUsername("Mohamed");
+		User charles = um.findUserByUsername("Juan");
+		User juan = um.findUserByUsername("Charles");
+
+		System.out.print(mohamed.toString());
+		System.out.print(charles.toString());
+		System.out.print(juan.toString());
+
+		um.addFriendshipBtn(mohamed, charles);
+		um.addFriendshipBtn(mohamed, juan);
+		um.addFriendshipBtn(charles, juan);
+
+		MessageManager mM = new MessageManager();
+		mM.addMessage(juan, mohamed, "Dummy message");
+		mM.addMessage(charles, mohamed, "Dummy message 2");
+
+
+		/*UserManager MU = new UserManager();
 
 		User user = MU.find(8);
 
@@ -254,7 +270,7 @@ public class UserManager {
 
 		MU.startHunting(user,hunt);
 
-		MU.checkCoordinate(user,hunt, coordinate.getLatitude(),coordinate.getLongitude(),true);
+		MU.checkCoordinate(user,hunt, coordinate.getLatitude(),coordinate.getLongitude(),true);*/
 
 	}
 

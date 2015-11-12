@@ -7,7 +7,7 @@
 				<span id="title">${message.users.sender.username}</span>
 			</a>
 			<span> 
-
+				${message.content}
 			</span>
 		</div>
 	</c:forEach>
