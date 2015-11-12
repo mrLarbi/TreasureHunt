@@ -8,7 +8,21 @@
 					<%@include file="lastHunts.jsp"%>
 				</div>
 				<div id="loginFormContainer" class="container col-xs-offset-1 col-md-3">
-					<%@include file="/Resources/HTML/login.html"%>
+					<form id="loginForm" class="rounded blackTransbg" action="${root}/login" method="post">
+						<div class="form-group">
+							<label for="email">Login</label>
+							<input class="form-control" name="login" id="email" placeholder="Username or email"/>
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" name="password"
+								   id="password" placeholder="Enter password"/>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-default">Sign In</button>
+							<a class="btn btn-primary" href="register">Sign Up</a>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

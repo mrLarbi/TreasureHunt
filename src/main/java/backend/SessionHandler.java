@@ -54,8 +54,7 @@ public class SessionHandler {
 	public static void addRememberCookie(HttpServletRequest request, HttpServletResponse response, User user) {
 		Cookie cookie = getCookie(request);
 		if (cookie == null) {
-			String toRemember = request.getParameter("username")
-					+ request.getParameter("password") + new Date().toString();
+			String toRemember = request.getParameter("username") + request.getParameter("password") + new Date().toString();
 
 			user.setRemember(toRemember);
 			cookie = new Cookie("token", user.getRemember());
@@ -76,6 +75,7 @@ public class SessionHandler {
 		if (user == null) {
 			String login = request.getParameter("login");
 			String password = request.getParameter("password");
+
 			if ((Validator.isValidMail(login) || Validator.isValidUsername(login))
 					&& Validator.isValidPassword(password)) {
 				user = manager.find(login, password);
@@ -86,7 +86,7 @@ public class SessionHandler {
 			addUserToSession(request, user);
 			updateRemember(request,user,manager);
 
-			getCookie(request).setValue(user.getRemember());
+			addRememberCookie(request,response,user);
 
 			request.getRequestDispatcher("/user/profile").forward(request,response);
 		// session.
