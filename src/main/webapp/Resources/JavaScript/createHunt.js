@@ -6,6 +6,7 @@ var markers = [];
 
 $(document).ready(function () {
 
+	$('#create').prop('disabled', true);
 	$('head').append('<link />');
 
 	$('#htitle').replaceWith( "<a id=\"huntTitle\" href=\"#\">New Hunt</a>" );
@@ -135,9 +136,12 @@ function printPoints() {
 	}
 
 	if(addedPoints.length === 0) {
+		$('button').prop('disabled', true);
 		notice = document.createElement('h2');
 		notice.innerHTML = 'Insert your points here by clicking on the map...';
 		$("#plist").append(notice);
+	} else {
+		$('button').prop('disabled', false);
 	}
 }
 
