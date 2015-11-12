@@ -6,7 +6,6 @@ import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import backend.SessionHandler;
 import hibernate.managers.UserManager;
@@ -33,7 +32,7 @@ public class LoggingFilter implements Filter {
 
 		User user = SessionHandler.getUser(req);
 
-		Cookie cookie = SessionHandler.getCookie(req);
+		Cookie cookie = SessionHandler.getTokenCookie(req);
 
 		if (user == null && cookie != null) {
 			UserManager manager = new UserManager();

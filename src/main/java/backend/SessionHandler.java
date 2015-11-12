@@ -1,7 +1,6 @@
 package backend;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -15,7 +14,7 @@ import hibernate.models.entities.User;
 public class SessionHandler {
 
 	public static void logOut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		Cookie cookie = getCookie(request);
+		Cookie cookie = getTokenCookie(request);
 		if (cookie != null) {
 			cookie.setMaxAge(0);
 			cookie.setValue(null);
@@ -52,7 +51,7 @@ public class SessionHandler {
 	}
 
 	public static void addRememberCookie(HttpServletRequest request, HttpServletResponse response, User user) {
-		Cookie cookie = getCookie(request);
+		Cookie cookie = getTokenCookie(request);
 		if (cookie == null) {
 			String toRemember = request.getParameter("username") + request.getParameter("password") + new Date().toString();
 
@@ -104,13 +103,22 @@ public class SessionHandler {
 		request.getSession().setAttribute("user", user);
 	}
 	public static User getUserFromRememberCookie(HttpServletRequest request, UserManager manager) {
-		Cookie cookie = getCookie(request);
-		String remember = cookie != null ? cookie.getValue() : "";
-		return manager.findByRemember(remember);
+		Cookie cookie = getTokenCookie(request);
+
+		if (cookie != null) {
+			return manager.findByRemember(cookie.getValue());
+		}
+
+		return null;
 	}
 
-	public static Cookie getCookie(HttpServletRequest request) {
+	public static Cookie getTokenCookie(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
+
+		if (cookies == null ) {
+			return null;
+		}
+
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals("token")) {
 				return cookie;
