@@ -3,7 +3,7 @@
     
     <header>
 	<div class="blackTransbg text-center container-fluid">
-		<h1 id="htitledisplay">
+		<h1 id="htitledisplay" data="${hunt.id}">
 			<span><c:out value="${hunt.name}"/>, by <c:out value="${hunt.creator.username}"/></span>
 		</h1>
 	</div>

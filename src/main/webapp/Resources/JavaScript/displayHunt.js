@@ -85,7 +85,7 @@ function checkPointDisplay(p) {
 	var isStruck = (ele.style.getPropertyValue("text-decoration") == "line-through");
 
 	var check = {};
-	check["name"] = $("#htitledisplay").text().split(",")[0].trim();
+	check["id"] = $("#htitledisplay").attr("data");
 
 	check["lat"] = latlng[p.slice(-1)].lat();
 	check["lng"] = latlng[p.slice(-1)].lng(); 
