@@ -90,18 +90,21 @@ function checkPointDisplay(p) {
 	check["lat"] = latlng[p.slice(-1)].lat();
 	check["lng"] = latlng[p.slice(-1)].lng(); 
 
+	var params = {};
 	if(isStruck === false) {
 		check["value"] = "true";
-		$.post("/TreasureHunt/hunt",check, function(response) {
-			if(response == "ok") {
+		params['param'] = JSON.stringify(check);
+		$.post("/TreasureHunt/hunt",params, function(response) {
+			if(response == "true") {
 				ele.style.setProperty("text-decoration", "line-through");
 			}
 		});
   		console.log(JSON.stringify(check));
 	} else {
 		check["value"] = "false";
-		$.post("/TreasureHunt/hunt",check, function(response) {
-			if(response == "ok") {
+		params['param'] = JSON.stringify(check);
+		$.post("/TreasureHunt/hunt",params, function(response) {
+			if(response == "true") {
 				ele.style.setProperty("text-decoration", "none");
 			}
 		});
