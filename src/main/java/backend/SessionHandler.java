@@ -22,7 +22,7 @@ public class SessionHandler {
 			response.addCookie(cookie);
 		}
 		SessionHandler.setUser(request,null);
-		request.getRequestDispatcher("/home").forward(request, response);
+		response.sendRedirect("home");
 	}
 
 	public static boolean signUp(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -32,7 +32,7 @@ public class SessionHandler {
 
 		if (user == null) {
 			// Login errors
-			request.getRequestDispatcher("/home").forward(request, response);
+			response.sendRedirect("home");
 			return false;
 		}
 
@@ -44,7 +44,7 @@ public class SessionHandler {
 
 		if (id != null)  {
 			// successfully added.
-			request.getRequestDispatcher("/user/profile").forward(request,response);
+			response.sendRedirect("user/profile");
 			return true;
 		} else {
 			return false;
@@ -88,7 +88,7 @@ public class SessionHandler {
 
 			addRememberCookie(request,response,user);
 
-			request.getRequestDispatcher("/user/profile").forward(request,response);
+			response.sendRedirect("user/profile");
 		// session.
 			// response.sendRedirect("login"); // Go to start page.
 		} else {
@@ -96,7 +96,7 @@ public class SessionHandler {
 			request.setAttribute("error", "Unknown login, try again"); 
 
 			// Go back to login page.
-			request.getRequestDispatcher("/home").forward(request, response);
+			response.sendRedirect("home");
 		}
 	}
 

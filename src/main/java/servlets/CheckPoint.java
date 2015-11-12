@@ -32,7 +32,7 @@ public class CheckPoint extends HttpServlet{
 
 
         HuntManager htManager = new HuntManager();
-        Hunt hunt = htManager.find(huntDetails);
+        Hunt hunt = htManager.find(Integer.parseInt(huntDetails));
 
         UserManager uManager = new UserManager();
         uManager.checkCoordinate(currentUser,hunt,coord);

@@ -22,7 +22,7 @@ public class StartHunt extends HttpServlet{
         String huntId = req.getParameter("hunt");
 
         HuntManager manager = new HuntManager();
-        Hunt hunt = manager.find(huntId);
+        Hunt hunt = manager.find(Integer.parseInt(huntId));
 
         UserManager userManager = new UserManager();
         userManager.startHunting(hunter,hunt);

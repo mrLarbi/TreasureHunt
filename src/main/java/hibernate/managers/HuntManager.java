@@ -88,7 +88,7 @@ public class HuntManager {
         return Collections.emptyList();
     }
 
-    public Hunt find(String huntId) {
+    public Hunt find(Integer huntId) {
         session = sessionFactory.openSession();
         Hunt hunt = null;
         try {
@@ -110,14 +110,14 @@ public class HuntManager {
     public List<Hunt> getLastFiveHunts() {
         List<Hunt> hunts = latestHunts();
         int length = hunts.size();
-        if (length <6 ) {
+        if (length < 6 ) {
             Collections.reverse(hunts);
             return hunts;
         }
 
         List<Hunt> desiredFive = new ArrayList<>();
 
-        for(int i = 0; i < 4 ; i++) {
+        for(int i = 0; i < 5 ; i++) {
             desiredFive.add(hunts.get(length-1-i));
         }
 
