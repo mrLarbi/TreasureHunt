@@ -160,8 +160,8 @@ public class SessionHandler {
 		return newUser;
 	}
 
-	public static boolean checkSessionLogged(HttpServletRequest request) {
-		return SessionHandler.getUser(request) != null;
+	public static boolean isSignedIn(HttpServletRequest request) {
+		return new Boolean(SessionHandler.getUser(request) != null);
 	}
 
 	public static User getUser(HttpServletRequest request) {

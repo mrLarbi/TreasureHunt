@@ -7,7 +7,11 @@
 				<div id="lastestHuntsContainer" class="container col-xs-offset-1 col-md-5 blackTransbg rounded">
 					<%@include file="lastHunts.jsp"%>
 				</div>
-				<div id="loginFormContainer" class="container col-xs-offset-1 col-md-3">
+				<div id="loginFormContainer" class="container col-xs-offset-1 col-md-3"
+						<c:if test="${signed eq true}">
+							style="visibility: hidden"
+						</c:if>
+						>
 					<form id="loginForm" class="rounded blackTransbg" action="${root}/login" method="post">
 						<div class="form-group">
 							<label for="email">Login</label>
