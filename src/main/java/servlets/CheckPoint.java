@@ -35,7 +35,7 @@ public class CheckPoint extends HttpServlet{
         Hunt hunt = htManager.find(Integer.parseInt(huntDetails));
 
         UserManager uManager = new UserManager();
-        uManager.checkCoordinate(currentUser,hunt,coord);
+        uManager.checkCoordinate(currentUser,hunt,coord.getLatitude(), coord.getLongitude(), true);
 
         // TODO page redirection
     }

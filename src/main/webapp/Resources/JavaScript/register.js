@@ -93,7 +93,8 @@ $(document).ready(function () {
         },
         messages: {
             username: {
-                required: "You need have a username to login."
+                required: "You need have a username to login.",
+                remote: "This username already exists."
             },
             password: {
                 required: "You need a password to protect your account.",

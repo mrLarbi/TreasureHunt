@@ -1,5 +1,6 @@
 var map;
 var addresses = [];
+var latlng = []
 
 $( document ).ready(function() {
     initPointsDisplay();
@@ -7,9 +8,24 @@ $( document ).ready(function() {
 
 function initPointsDisplay() {
 	
+	var i = 0;
 	$("li").each(function() {
+		$(this).attr('id', 'point' + i);
 		var adr = $(this).text();
 		addresses.push(adr);
+		$(this).click(function(event){
+        		var index = event.target.id;
+        		checkPointDisplay(index);
+		});
+
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode( { 'address': adr}, function(results, status) {
+  			if (status == google.maps.GeocoderStatus.OK) {
+        		latlng.push(results[0].geometry.location);
+  			}
+		});
+
+		i++;
 	});
 
 }
@@ -55,35 +71,40 @@ function initializeDisplay() {
 		var geocoder = new google.maps.Geocoder();
 		var i;
 		for(i = 0; i < addresses.length; i++) {
-			geocoder.geocode( { 'address': addresses[i]}, function(results, status) {
-  				if (status == google.maps.GeocoderStatus.OK) {
-    				var marker = new google.maps.Marker({
-        				map: map,
-        				position: results[0].geometry.location
-    				});
-  				}
-			});
+    		var marker = new google.maps.Marker({
+        		map: map,
+        		position: latlng[i]
+    		});
 		}
 }
 google.maps.event.addDomListener(window, 'load', initializeDisplay);
 
-function printPointsDisplay() {
-	$("#plist").empty();
-	var i;
-	for(i = 0; i < addedPoints.length; i++) {
-		newPoint = document.createElement("li");
-		newPoint.setAttribute('id', 'point' + i);
-
-		var name = addedPoints[i].name;
-		newPoint.addEventListener("click", function(event){
-        		var index = event.target.id.slice(-1);
-        		checkPointDisplay(index);
-		});
-		newPoint.innerHTML = name;
-		$("#plist").append(newPoint);
-	}
-}
-
 function checkPointDisplay(p) {
+	var ele = document.getElementById(p);
 
+	var isStruck = (ele.style.getPropertyValue("text-decoration") == "line-through");
+
+	var check = {};
+	check["name"] = $("#htitledisplay").text().split(",")[0].trim();
+
+	check["lat"] = latlng[p.slice(-1)].lat();
+	check["lng"] = latlng[p.slice(-1)].lng(); 
+
+	if(isStruck === false) {
+		check["value"] = "true";
+		$.post("/TreasureHunt/hunt",check, function(response) {
+			if(response == "ok") {
+				ele.style.setProperty("text-decoration", "line-through");
+			}
+		});
+  		console.log(JSON.stringify(check));
+	} else {
+		check["value"] = "false";
+		$.post("/TreasureHunt/hunt",check, function(response) {
+			if(response == "ok") {
+				ele.style.setProperty("text-decoration", "none");
+			}
+		});
+  		console.log(JSON.stringify(check));
+	}
 }
