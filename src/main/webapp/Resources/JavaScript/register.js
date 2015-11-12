@@ -2,6 +2,7 @@ $.validator.addMethod("regx", function(value, element, regexpr) {
     return regexpr.test(value);
 }, "Your input is not accepted.");
 
+/*
 $.validator.addMethod("is_available", function(value,element) {
     var values ={};
     values['username'] = value;
@@ -19,6 +20,8 @@ $.validator.addMethod("is_available", function(value,element) {
             }
         });
 }, "This username is already taken.");
+*/
+
 
 $(document).ready(function () {
     $('#regButton').click(function() {
@@ -62,7 +65,17 @@ $(document).ready(function () {
             },
             email: {
                 required: true,
-                email: true
+                email: true,
+                remote: {
+                    url: 'email/available',
+                    type: 'POST',
+                    data: {
+                        'email': function () {
+                            return $('#email').val();
+                        }
+                    },
+                    dataType: 'json'
+                }
             },
             realname: {
                 regx: /([A-Za-z]{2}[A-Za-z]*[ ]?[A-Za-z]*)*/
@@ -92,7 +105,8 @@ $(document).ready(function () {
             },
             email: {
                 required: "We need an email to contact you.",
-                email: "The email must have the form aaa@bbb.ccc"
+                email: "The email must have the form aaa@bbb.ccc",
+                remote: "This email is already taken."
             },
             realname: {
                 regx: "Please enter your real name."
