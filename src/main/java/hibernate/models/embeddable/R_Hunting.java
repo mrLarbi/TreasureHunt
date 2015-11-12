@@ -7,8 +7,10 @@ import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
 import hibernate.models.entities.User;
 
+import java.io.Serializable;
+
 @Embeddable
-public class R_Hunting {
+public class R_Hunting implements Serializable {
 	@ManyToOne
 	private User hunter;
 	

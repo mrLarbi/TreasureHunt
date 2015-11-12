@@ -6,8 +6,10 @@ import javax.persistence.ManyToOne;
 
 import hibernate.models.entities.User;
 
+import java.io.Serializable;
+
 @Embeddable
-public class R_Messaging {
+public class R_Messaging implements Serializable{
 	@ManyToOne
 	private User sender;
 	

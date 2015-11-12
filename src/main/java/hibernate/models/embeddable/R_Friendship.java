@@ -5,8 +5,10 @@ import javax.persistence.ManyToOne;
 
 import hibernate.models.entities.User;
 
+import java.io.Serializable;
+
 @Embeddable
-public class R_Friendship {
+public class R_Friendship implements Serializable {
 	
 	
 	@ManyToOne

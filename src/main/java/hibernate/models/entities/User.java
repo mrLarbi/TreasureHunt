@@ -3,6 +3,7 @@ package hibernate.models.entities;
 
 import org.hibernate.annotations.Where;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Base64;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_id_seq")
 	@SequenceGenerator(name="user_id_seq", sequenceName="user_id_seq", allocationSize=1)

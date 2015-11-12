@@ -1,5 +1,6 @@
 package hibernate.models.entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import hibernate.models.embeddable.R_Messaging;
 	@AssociationOverride( name = "users.receiver",
 						joinColumns = @JoinColumn(name = "userto"))
 })
-public class Message {
+public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="message_id_seq")
     @SequenceGenerator(name="message_id_seq", sequenceName="message_id_seq", allocationSize=1)

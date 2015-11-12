@@ -1,5 +1,6 @@
 package hibernate.models.entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.AssociationOverride;
@@ -25,7 +26,7 @@ import hibernate.models.embeddable.R_Friendship;
 						joinColumns = @JoinColumn(name = "follower"))
 })
 
-public class Friend {
+public class Friend implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="friend_id_seq")

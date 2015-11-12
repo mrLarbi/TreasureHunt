@@ -2,6 +2,7 @@ package hibernate.models.entities;
 
 import org.hibernate.annotations.Where;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "coordinates")
-public class Coordinate {
+public class Coordinate implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="coord_id_seq")
     @SequenceGenerator(name="coord_id_seq", sequenceName="coord_id_seq", allocationSize=1)

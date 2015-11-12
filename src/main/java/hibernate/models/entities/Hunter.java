@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import hibernate.models.embeddable.R_Hunting;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -26,7 +27,7 @@ import java.util.Objects;
 	@AssociationOverride(name = "hunting.huntedPoint",
 						joinColumns = @JoinColumn(name = "coord_id"))
 })
-public class Hunter {
+public class Hunter implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="hunter_id_seq")
     @SequenceGenerator(name="hunter_id_seq", sequenceName="hunter_id_seq", allocationSize=1)
