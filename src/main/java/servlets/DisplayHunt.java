@@ -32,7 +32,7 @@ public class DisplayHunt extends HttpServlet{
         	hunt = huntManager.createHunt("None", new UserManager().createUser("404", "", ""));
         
         request.setAttribute("hunt", hunt);
-        request.setAttribute("logged", new Boolean(SessionHandler.checkSessionLogged(request)));
+        request.setAttribute("logged", SessionHandler.isSignedIn(request));
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/hunt.jsp").forward(request, response);
     	
     }
