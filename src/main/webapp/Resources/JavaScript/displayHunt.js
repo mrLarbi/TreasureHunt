@@ -13,10 +13,13 @@ function initPointsDisplay() {
 		$(this).attr('id', 'point' + i);
 		var adr = $(this).text();
 		addresses.push(adr);
-		$(this).click(function(event){
-        		var index = event.target.id;
-        		checkPointDisplay(index);
-		});
+
+		if($("#islogged").attr("data") == "true") {
+			$(this).click(function(event){
+        			var index = event.target.id;
+        			checkPointDisplay(index);
+			});
+		}
 
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode( { 'address': adr}, function(results, status) {

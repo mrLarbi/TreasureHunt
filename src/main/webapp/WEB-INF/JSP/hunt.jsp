@@ -1,6 +1,8 @@
 <html>
     <%@include file="header.jsp" %>
     
+    <div id="islogged" data="${logged}"></div>
+
     <header>
 	<div class="blackTransbg text-center container-fluid">
 		<h1 id="htitledisplay" data="${hunt.id}">
