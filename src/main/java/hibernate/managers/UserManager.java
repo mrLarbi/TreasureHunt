@@ -246,31 +246,6 @@ public class UserManager {
 		mM.addMessage(juan, mohamed, "Dummy message");
 		mM.addMessage(charles, mohamed, "Dummy message 2");
 
-
-		/*UserManager MU = new UserManager();
-
-		User user = MU.find(8);
-
-		HuntManager HM = new HuntManager();
-		List<Hunt> hunts = HM.latestHunts();
-		Hunt hunt = hunts.get(1);
-
-		Coordinate coordinate = new Coordinate();
-		coordinate.setLatitude("67.9");
-		coordinate.setLongitude("34.09");
-		coordinate.setName("Test");
-
-		CoordinateManager CM = new CoordinateManager();
-
-		CM.addCoordinate(coordinate);
-
-
-		hunt.addCoordinate(coordinate);
-
-		MU.startHunting(user,hunt);
-
-		MU.checkCoordinate(user,hunt, coordinate.getLatitude(),coordinate.getLongitude(),true);*/
-
 	}
 
 	// TODO need refactoring
@@ -282,16 +257,17 @@ public class UserManager {
 
 			List<User> user = query.list();
 
+			session.close();
+
 			if (user.isEmpty()) {
 				return null;
 			}
 
 			return user.get(0);
 		} catch (HibernateException e) {
-		} finally {
 			session.close();
+			return null;
 		}
-		return null;
 	}
 
 	// TODO need refactoring with method up-top
@@ -304,17 +280,16 @@ public class UserManager {
 
 			List<User> user = query.list();
 
+			session.close();
 			if (user.isEmpty()) {
 				return null;
 			}
 
 			return user.get(0);
 		} catch (HibernateException e) {
-		} finally {
 			session.close();
+			return null;
 		}
-
-		return null;
 	}
 
 	public boolean isValidLogin(String username, String password) {
@@ -330,17 +305,17 @@ public class UserManager {
 
 			List<User> user = query.list();
 
+
+			session.close();
 			if (user.isEmpty()) {
 				return null;
 			}
 
 			return user.get(0);
 		} catch (HibernateException e) {
-		} finally {
 			session.close();
+			return null;
 		}
-
-		return null;
 	}
 
 	public User find(String username, String password) {

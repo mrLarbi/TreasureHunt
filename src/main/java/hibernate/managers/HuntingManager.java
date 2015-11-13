@@ -75,14 +75,13 @@ public class HuntingManager {
             hunting.setFinished(value);
             session.update(hunting);
             tx.commit();
+            session.close();
             return true;
         } catch (HibernateException e) {
             if (tx != null)
                 tx.rollback();
-            e.printStackTrace();
-            return false;
-        } finally {
             session.close();
+            return false;
         }
     }
 
@@ -100,15 +99,16 @@ public class HuntingManager {
 
             List<Hunter> huntings = query.list();
 
+
+            session.close();
             if (huntings.isEmpty()) {
                 return null;
             }
             Hunter hunting = huntings.get(0);
             return hunting;
         } catch (HibernateException e) {
-           return null;
-        } finally {
             session.close();
+           return null;
         }
 
     }
