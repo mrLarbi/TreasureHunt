@@ -56,7 +56,7 @@
                                     <input type="checkbox" id="genderbox" name = "gender" value="F"> Female
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" name ="gender" id="genderbox" value="N"> Other
+                                    <input type="checkbox" name ="gender" id="genderbox" checked="true" value="N"> Other
                                 </label>
                             </div>
                         </div>

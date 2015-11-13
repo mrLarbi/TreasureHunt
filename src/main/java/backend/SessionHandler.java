@@ -92,7 +92,7 @@ public class SessionHandler {
 			// response.sendRedirect("login"); // Go to start page.
 		} else {
 			// Set error msg for ${error}
-			request.setAttribute("error", "Unknown login, try again"); 
+			request.getSession().setAttribute("error", "Unknown login, try again");
 
 			// Go back to login page.
 			response.sendRedirect("home");

@@ -13,6 +13,9 @@
 						</c:if>
 						>
 						<c:set var ="url" value="${root}/login"/>
+					<div class="alert-danger">
+						${error}
+					</div>
 					<form id="loginForm" class="rounded blackTransbg" action="<c:out value="${pageContext.response.encodeURL(url)}"/>" method="post">
 						<div class="form-group">
 							<label for="email">Login</label>

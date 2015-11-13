@@ -37,8 +37,8 @@
   					</c:when>
   					<c:otherwise>
   						<div class="text-center">
-							<a href="${root}">
-								<button class="btn btn-default btnclass">Return to home</button>
+							<a href="${root}/home" class="btn btn-default btnclass">
+								Return to home
 							</a>
 						</div>
   					</c:otherwise>
