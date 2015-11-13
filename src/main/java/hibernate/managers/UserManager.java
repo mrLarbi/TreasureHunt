@@ -3,9 +3,7 @@ package hibernate.managers;
 import java.util.Iterator;
 import java.util.List;
 
-import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
-import hibernate.models.entities.Message;
 import hibernate.utility.HibernateUtility;
 import hibernate.utility.SqlDateUtility;
 import org.hibernate.HibernateException;
@@ -18,12 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import hibernate.models.entities.User;
 
 public class UserManager {
-	private SessionFactory sessionFactory;
-	private Session session;
+	private static SessionFactory sessionFactory;
 
-	public UserManager() {
-		sessionFactory = HibernateUtility.createSessionFactory(User.class);
+	static {
+		sessionFactory = HibernateUtility.createSessionFactory();
 	}
+
+	private Session session;
 
 	/* Method to CREATE a user in the database */
 	public Integer addUser(String username, String password, String email) {

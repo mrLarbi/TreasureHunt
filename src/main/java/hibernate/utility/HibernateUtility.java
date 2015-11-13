@@ -9,17 +9,23 @@ import org.hibernate.service.ServiceRegistryBuilder;
  * Created by Machi on 24/10/2015.
  */
 public class HibernateUtility {
-    public static SessionFactory createSessionFactory(Class clazz) {
+    private  static SessionFactory sessionFactory = null;
+
+    private static void newFactory  () {
         Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(clazz);
         configuration.configure();
 
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
                 .buildServiceRegistry();
 
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
-        return sessionFactory;
     }
 
+    public static SessionFactory createSessionFactory() {
+        if (sessionFactory == null) {
+            newFactory();
+        }
+        return sessionFactory;
+    }
 }

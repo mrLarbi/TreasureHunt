@@ -19,12 +19,13 @@ import java.util.Set;
 // TODO
 public class HuntingManager {
 
-    private static SessionFactory sessionFactory = HibernateUtility.createSessionFactory(Hunter.class);
-    private static Session session;
+    private static SessionFactory sessionFactory;
 
-    public HuntingManager() {
-
+    static {
+        sessionFactory = HibernateUtility.createSessionFactory();
     }
+
+    private static Session session;
 
     public static Hunter newHunterInstance(User hunter, Hunt hunt,Coordinate coord) {
         Hunter hunting = new Hunter(hunter,hunt);

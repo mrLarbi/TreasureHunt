@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.sql.Date;
 import java.util.*;
 
 /**
@@ -18,13 +17,13 @@ import java.util.*;
  */
 public class HuntManager {
 
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
+    static {
+        sessionFactory = HibernateUtility.createSessionFactory();
+    }
+
     private Session session;
 
-    public HuntManager() {
-
-        sessionFactory = HibernateUtility.createSessionFactory(Hunt.class);
-    }
 
     public static Hunt createHunt(String name, User creator) {
         Hunt hunt = new Hunt();

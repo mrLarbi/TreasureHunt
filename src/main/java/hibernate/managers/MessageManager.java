@@ -13,13 +13,13 @@ import org.hibernate.Transaction;
  * Created by mohameddd on 10/18/15.
  */
 public class MessageManager {
+    private static SessionFactory sessionFactory;
 
-    private SessionFactory sessionFactory;
-    private Session session;
-
-    public MessageManager() {
-        sessionFactory = HibernateUtility.createSessionFactory(Message.class);
+    static {
+        sessionFactory = HibernateUtility.createSessionFactory();
     }
+
+    private Session session;
 
     public static Message createMessage(User sender, User receiver, String content) {
         Message message = new Message(sender, receiver);

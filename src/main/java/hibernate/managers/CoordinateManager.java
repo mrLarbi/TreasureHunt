@@ -1,7 +1,6 @@
 package hibernate.managers;
 
 import hibernate.models.entities.Coordinate;
-import hibernate.models.entities.Hunter;
 import hibernate.utility.HibernateUtility;
 import org.hibernate.*;
 
@@ -12,12 +11,13 @@ import java.util.List;
  * Created by mohameddd on 10/18/15.
  */
 public class CoordinateManager {
-    private SessionFactory sessionFactory;
-    private Session session;
+    private static SessionFactory sessionFactory;
 
-    public CoordinateManager() {
-        sessionFactory = HibernateUtility.createSessionFactory(Coordinate.class);
+    static {
+        sessionFactory = HibernateUtility.createSessionFactory();
     }
+
+    private Session session;
 
     public static Coordinate createCoordinate(String name, String latitude, String longitude, String image) {
         Coordinate coordinate = new Coordinate(name, latitude,longitude,image);
