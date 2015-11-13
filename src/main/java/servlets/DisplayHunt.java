@@ -30,25 +30,29 @@ public class DisplayHunt extends HttpServlet{
 
         Hunt hunt = null;
         HuntManager huntManager = new HuntManager();
-        
+
         if (huntID != null && !huntID.isEmpty()) {
             hunt = huntManager.find(Integer.parseInt(huntID));
         }
-    	
+
         if(hunt == null)
         	hunt = huntManager.createHunt("None", new UserManager().createUser("404", "", ""));
-        
+
         request.setAttribute("hunt", hunt);
         request.setAttribute("logged", SessionHandler.isSignedIn(request));
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/hunt.jsp").forward(request, response);
-    	
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer = response.getWriter();
         response.setContentType("appliaction/html");
-        writer.write(new Boolean(checkPoint(request,response)).toString());
+        if(SessionHandler.isSignedIn(request)) {
+          writer.write(new Boolean(checkPoint(request,response)).toString());
+        }  else {
+          writer.write("/home");
+        }
     }
 
     private JSONObject parseRequestParams(HttpServletRequest request) {

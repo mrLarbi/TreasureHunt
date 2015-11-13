@@ -7,7 +7,7 @@ $( document ).ready(function() {
 });
 
 function initPointsDisplay() {
-	
+
 	var i = 0;
 	$("li").each(function() {
 		$(this).attr('id', 'point' + i);
@@ -45,7 +45,7 @@ function initializeDisplay() {
         map = new google.maps.Map(mapCanvas, mapOptions)
 
         var strictBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(48.815352, 2.244400), 
+	     new google.maps.LatLng(48.815352, 2.244400),
 	     new google.maps.LatLng(48.904310, 2.418034)
 	   );
 
@@ -91,22 +91,24 @@ function checkPointDisplay(p) {
 	check["id"] = $("#htitledisplay").attr("data");
 
 	check["lat"] = latlng[p.slice(-1)].lat();
-	check["lng"] = latlng[p.slice(-1)].lng(); 
+	check["lng"] = latlng[p.slice(-1)].lng();
 
 	var params = {};
 	if(isStruck === false) {
 		check["value"] = "true";
 		params['param'] = JSON.stringify(check);
-		$.post("/TreasureHunt/hunt",params, function(response) {
+		$.post("/hunt",params, function(response) {
 			if(response == "true") {
 				ele.style.setProperty("text-decoration", "line-through");
-			}
+			} else if ( response == "/home") {
+        window.location.href = response;
+      }
 		});
   		console.log(JSON.stringify(check));
 	} else {
 		check["value"] = "false";
 		params['param'] = JSON.stringify(check);
-		$.post("/TreasureHunt/hunt",params, function(response) {
+		$.post("/hunt",params, function(response) {
 			if(response == "true") {
 				ele.style.setProperty("text-decoration", "none");
 			}

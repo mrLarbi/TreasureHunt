@@ -42,11 +42,11 @@ $(document).ready(function () {
 
 		var params = {param:JSON.stringify(create)};
 
-		$.post("/TreasureHunt/user/createhunt",params, function(response) {
+		$.post("/user/createhunt",params, function(response) {
 			if (response == "false") {
 				return;
 			}
-			window.location.href = "/TreasureHunt/hunt?id="+response;
+			window.location.href = "/hunt?id="+response;
 		});
   		console.log(JSON.stringify(params));
 	});
@@ -63,7 +63,7 @@ function initialize() {
         map = new google.maps.Map(mapCanvas, mapOptions)
 
         var strictBounds = new google.maps.LatLngBounds(
-	     new google.maps.LatLng(48.815352, 2.244400), 
+	     new google.maps.LatLng(48.815352, 2.244400),
 	     new google.maps.LatLng(48.904310, 2.418034)
 	   );
 
@@ -88,7 +88,7 @@ function initialize() {
 
 		 map.setCenter(new google.maps.LatLng(y, x));
 		});
-		
+
 		google.maps.event.addListener(map, 'click', function(event) {
    			confirmPoint(event.latLng);
 		});
@@ -101,7 +101,7 @@ function confirmPoint(location) {
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode( {
 	    "latLng": location
-	 }, 
+	 },
 	 function (results, status) {
 	     if (status == google.maps.GeocoderStatus.OK) {
 	         var lat = results[0].geometry.location.lat(),
@@ -120,7 +120,7 @@ function confirmPoint(location) {
 
 function placeMarker(location) {
     var marker = new google.maps.Marker({
-        position: location, 
+        position: location,
         map: map
     });
 

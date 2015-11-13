@@ -4,9 +4,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.password">PXRF4SGDY1g7Ci5BS8ztNan6BAjMaSGI</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://pellefant-01.db.elephantsql.com:5432/jnvzjovc</property>
-		<property name="hibernate.connection.username">jnvzjovc</property>
+		<property name="hibernate.connection.password">lyix_m38ZHebXCviMyxWgXK86X</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://ec2-54-83-25-238.compute-1.amazonaws.com:5432/dba5o9q74b8uvr</property>
+		<property name="hibernate.connection.username">kqdalmnmhjefld</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
 

@@ -1,27 +1,6 @@
-$.validator.addMethod("regx", function(value, element, regexpr) {          
+$.validator.addMethod("regx", function(value, element, regexpr) {
     return regexpr.test(value);
 }, "Your input is not accepted.");
-
-/*
-$.validator.addMethod("is_available", function(value,element) {
-    var values ={};
-    values['username'] = value;
-
-    $.ajax({
-            type: "GET",
-            url: "available",
-            dataType: "json",
-            data: values,
-            success: function(data) {
-                return data.result;
-            },
-            error: function(result) {
-                return false;
-            }
-        });
-}, "This username is already taken.");
-*/
-
 
 $(document).ready(function () {
     $('#regButton').click(function() {
@@ -135,7 +114,7 @@ $(document).ready(function () {
                         var parent = element.parentElement;
                         while(inputStatus != null) {
                             parent.removeChild(element.nextElementSibling);
-                            inputStatus = element.nextElementSibling;                           
+                            inputStatus = element.nextElementSibling;
                         }
 
                         var status = document.createElement("span");
@@ -158,7 +137,7 @@ $(document).ready(function () {
                         var parent = element.parentElement;
                         while(inputStatus != null) {
                             parent.removeChild(element.nextElementSibling);
-                            inputStatus = element.nextElementSibling;                           
+                            inputStatus = element.nextElementSibling;
                         }
 
                         var status = document.createElement("span");

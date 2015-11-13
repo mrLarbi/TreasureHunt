@@ -76,7 +76,7 @@
                 </div>
                 <div id="buttonsBlock" class="row">
                     <div id="buttons" class="text-center container-fluid col-xs-offset-7 col-md-2">
-                        <a class="btn btn-default" href="http://localhost:8080/TreasureHunt/">Cancel</a>
+                        <a class="btn btn-default" href="/home">Cancel</a>
                         <button id="regButton" type="sumbit" class="btn btn-primary">Register</button>
                     </div>
                 </div>
@@ -84,5 +84,3 @@
         </div>
     </body>
 </html>
-
-
