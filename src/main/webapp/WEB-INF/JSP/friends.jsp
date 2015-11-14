@@ -2,10 +2,10 @@
 <div class = " scrollable col-md-offset-1" style="height:100">
 	<c:forEach items="${friends}" var="friend">
 		<div id ="lasthunt" class="row">
-			<a href="${root}/user/profile?id=${friend.friends.agent.id}">
+			<a href="${root}/user/profile?id=${friend.friends.follower.id}">
 				<h3 id="friendUName"><img style="margin-right:10px"
-										  src="${root}/Resources/Images/${friend.friends.agent.avatar}"/>
-										  ${friend.friends.agent.username}
+										  src="${root}/Resources/Images/${friend.friends.follower.avatar}"/>
+										  ${friend.friends.follower.username}
 				</h3>
 			</a>
 		</div>
