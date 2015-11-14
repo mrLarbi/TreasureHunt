@@ -68,7 +68,7 @@ public class Profile extends HttpServlet {
         request.setAttribute("avatar", "" + user.getAvatar());
         request.setAttribute("createdhunts", user.getCreatedhunts());
         request.setAttribute("currenthunts", user.getCurrentHunts());
-        request.setAttribute("friends", user.getFriends());
+        request.setAttribute("friends", user.getListOFfollowed());
         request.setAttribute("messages", user.getReceivedMessages());
         request.setAttribute("isSameUser", isSameUser);
         this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/viewProfile.jsp").forward(request, response);
