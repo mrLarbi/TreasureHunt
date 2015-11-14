@@ -1,63 +1,61 @@
-<div class="row">
-		<span> <img src="${root}/Resources/Images/defaultAvatar.png" class="userimage"></img></span>
-		<span> ${ username } </span> 
-	</div>
-
-
+<div class = "container-fluid">
 <div>
-	<h2>
+	<h3>
 		Email
-	</h2>
-	<p>
+	</h3>
+	<h4 class="col-md-offset-1">
 		${ email }
-	</p>
+	</h4>
 </div>
 
 <div>
-	<h2>
+	<h3>
 		Name
-	</h2>
-	<p>
+	</h3>
+	<h4 class="col-md-offset-1">
 		${ name }
-	</p>
+	</h4>
 </div>
 
 
 <div>
-	<h2>
+	<h3>
 		Phone
-	</h2>
-	<p>
+	</h3>
+	<h4 class="col-md-offset-1">
 		${ phone }
-	</p>
+	</h4>
 </div>
 
 <div>
-	<h2>
-		Zipcode
-	</h2>
-	<p>
+	<h3>
+		ZIP Code
+	</h3>
+	<h4 class="col-md-offset-1">
 		${ zipcode }
-	</p>
+	</h4>
 </div>
 
 <div>
-	<h2>
+	<h3>
 		Gender
-	</h2>
-	<p>
+	</h3>
+	<h4 class="col-md-offset-1">
 		${ gender }
-	</p>
+	</h4>
 </div>
 
+<div id="profileButton" class="container">
 <c:choose>
 	<c:when test="${isSameUser eq true}">
-		<div class="tab-pane fade">
-			<a class="btn btn-primary" href="${root}/user/profile/modification"> Modify my profile</a>
+		<div class="container-fluid">
+			<a style="margin-right:20px" id="changeAvatar" class="btn btn-primary"> Change Avatar</a>
+			<a id="editProfile" class="btn btn-primary"> Edit Profile</a>
 		</div>
 	</c:when>
 	<c:otherwise>
-		<a class="btn-primary btn" href="${root}/user/follow?username=${username}">Follow</a>
+		<a class="btn-primary btn" href="${root}/user/follow?username=${username}">Follow User</a>
 	</c:otherwise>
 </c:choose>
-
+</div>
+</div>

@@ -2,7 +2,7 @@
 <div>
 	<c:forEach items="${friends}" var="friend">
 		<div id ="lasthunt" class="row">
-			<span> <img src="${root}/Resources/Images/{friend.friends.follower.avatar}"></img></span>
+			<span> <img src="${root}/Resources/Images/${friend.friends.follower.avatar}"></img></span>
 			<a href="${root}/user/profile?id=${friend.friends.follower.id}">
 				<span id="title">${friend.friends.follower.username}</span>
 			</a>
