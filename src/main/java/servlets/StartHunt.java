@@ -23,7 +23,7 @@ public class StartHunt extends HttpServlet{
         String huntId = req.getParameter("hunt");
 
         if  (!Validator.isNumberFormat(huntId)) {
-            resp.sendError(405);
+            resp.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
             return;
         }
         HuntManager manager = new HuntManager();

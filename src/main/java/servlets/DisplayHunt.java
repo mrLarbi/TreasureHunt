@@ -32,16 +32,19 @@ public class DisplayHunt extends HttpServlet{
         Hunt hunt = null;
         HuntManager huntManager = new HuntManager();
 
-        if (huntID != null && !huntID.isEmpty()) {
+        if (Validator.isNumberFormat(huntID)) {
             hunt = huntManager.find(Integer.parseInt(huntID));
         }
 
-        if(hunt == null)
+        if(hunt == null) {
         	hunt = huntManager.createHunt("None", new UserManager().createUser("404", "", ""));
+        }
 
         request.setAttribute("hunt", hunt);
         request.setAttribute("logged", SessionHandler.isSignedIn(request));
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/hunt.jsp").forward(request, response);
+
+        // response.sendError(403)
 
     }
 
@@ -60,7 +63,7 @@ public class DisplayHunt extends HttpServlet{
         return new JSONObject(request.getParameter("param"));
     }
 
-    private boolean checkPoint(HttpServletRequest request, HttpServletResponse response) {
+    private boolean checkPoint(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject params = parseRequestParams(request);
         String lat = params.get("lat").toString();
         String lng = params.get("lng").toString();
@@ -68,6 +71,7 @@ public class DisplayHunt extends HttpServlet{
         String id = params.getString("id");
 
         if  (!Validator.isNumberFormat(id)) {
+            response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
             return false;
         }
 

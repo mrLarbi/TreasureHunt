@@ -31,7 +31,7 @@ public class FollowUser extends HttpServlet {
             }
 
         } else {
-            resp.sendError(404);
+            resp.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
         }
 
         // TODO notify user

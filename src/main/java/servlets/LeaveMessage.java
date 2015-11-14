@@ -27,7 +27,7 @@ public class LeaveMessage extends HttpServlet {
         String to = req.getParameter("receiver");
 
         if  (!Validator.isNumberFormat(to)) {
-            resp.sendError(405);
+            resp.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
             return;
         }
 
