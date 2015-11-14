@@ -49,3 +49,15 @@
 		${ gender }
 	</p>
 </div>
+
+<c:choose>
+	<c:when test="${isSameUser eq true}">
+		<div class="tab-pane fade">
+			<a class="btn btn-primary" href="${root}/user/profile/modification"> Modify my profile</a>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<a class="btn-primary btn" href="${root}/user/follow?username=${username}">Follow</a>
+	</c:otherwise>
+</c:choose>
+

@@ -20,12 +20,12 @@ public class Profile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("id");
+        String userId = request.getParameter("id");
         User user;
 
-        if (username != null && !username.isEmpty() && Validator.isValidUsername(username)) {
+        if (userId != null && !userId.isEmpty() && Validator.isNumberFormat(userId)) {
             UserManager userManager = new UserManager();
-            user = userManager.findUserByUsername(username);
+            user = userManager.find(Integer.parseInt(userId));
         } else {
             user = SessionHandler.getUser(request);
         }

@@ -106,7 +106,10 @@ public class User implements Serializable {
 	}
 
 	public Set<Friend> getFriends() {
-		return myFollowers;
+		Set<Friend> friends = new HashSet<>();
+		friends.addAll(getListOFfollowed());
+		friends.addAll(getMyFollowers());
+		return friends;
 	}
 
 	public void setFriends(Set<Friend> friends) {
