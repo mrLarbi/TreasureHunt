@@ -7,6 +7,9 @@ import hibernate.models.entities.User;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,7 +60,7 @@ public class EditProfile extends HttpServlet {
 
         }
 
-        if (saveAvatarFile(request,response,currentUser.getUsername())) {
+        if (saveAvatarFile(request,response,currentUser.getUsername()+".png")) {
             currentUser.setAvatar(currentUser.getUsername());
         }
 
@@ -78,10 +81,18 @@ public class EditProfile extends HttpServlet {
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
 
+
         boolean result = false;
         try {
-            out = new FileOutputStream(new File(path + File.separator
-                    + fileName));
+
+            File file = new File(path + File.separator + fileName);
+
+            if(!file.exists() && !file.isDirectory())
+            {
+                file.createNewFile();
+            }
+
+            out = new FileOutputStream(file);
             filecontent = filePart.getInputStream();
 
             int read = 0;
