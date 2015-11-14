@@ -24,6 +24,7 @@ public class CreateHunt extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setAttribute("title","Create a new hunt");
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/createHunt.jsp").forward(request, response);
     	
     }

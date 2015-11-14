@@ -1,5 +1,5 @@
 <h2> Friends </h2>
-<div class = " scrollable col-md-offset-1" style="height:100">
+<div class = " scrollable col-md-offset-1" style="height:100%">
 	<c:forEach items="${friends}" var="friend">
 		<div id ="lasthunt" class="row">
 			<a href="${root}/user/profile?id=${friend.friends.follower.id}">

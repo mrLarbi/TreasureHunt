@@ -20,6 +20,7 @@ public class Register extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO get all sent fields, create a User object and persists it.
+		request.setAttribute("title", "Register");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/register.jsp").forward(request, response);
 	}
 

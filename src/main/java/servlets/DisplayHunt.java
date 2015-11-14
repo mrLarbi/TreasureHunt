@@ -48,6 +48,7 @@ public class DisplayHunt extends HttpServlet{
             request.setAttribute("done", HuntingManager.getDonePoints(current,hunt));
         }
 
+        request.setAttribute("title",hunt.getName());
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/hunt.jsp").forward(request, response);
 
         // response.sendError(403)

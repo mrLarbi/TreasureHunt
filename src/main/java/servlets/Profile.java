@@ -59,6 +59,7 @@ public class Profile extends HttpServlet {
             isSameUser = true;
         }
 
+        request.setAttribute("title",user.getUsername() + "'s  profile");
         request.setAttribute("username", user.getUsername());
         request.setAttribute("email", user.getEmail());
         request.setAttribute("phone", phone);
