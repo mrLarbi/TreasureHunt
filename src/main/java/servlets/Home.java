@@ -26,7 +26,7 @@ public class Home extends HttpServlet {
 		PageHandler.setTitleAndHeader(request, "Welcome to your Treasure Hunt!");
 		request.setAttribute("hunts",new HuntManager().getLastFiveHunts());
 		request.setAttribute("signed",SessionHandler.isSignedIn(request));
-		request.setAttribute("title","Treasure hunt");
+		request.setAttribute("title","Treasure Hunt");
 		this.getServletContext().getRequestDispatcher( "/WEB-INF/JSP/welcome.jsp" ).forward( request, response );
 	}
 

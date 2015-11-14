@@ -133,4 +133,14 @@ public class HuntingManager {
         }
 
     }
+
+    public static List<Hunter> sendAllAsNotCheckedPoints( User user, Hunt hunt) {
+        List<Hunter> hunters = new ArrayList<>();
+
+        for (Coordinate coordinate:hunt.getCoordinates()) {
+            hunters.add(newHunterInstance(user,hunt,coordinate));
+        }
+
+        return hunters;
+    }
 }

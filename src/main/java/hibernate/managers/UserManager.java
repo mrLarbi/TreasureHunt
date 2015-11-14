@@ -59,6 +59,21 @@ public class UserManager {
 
 	}
 
+	public boolean updateUser (User user ) {
+		session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(user);
+			tx.commit();
+			session.close();
+			return true;
+		} catch (HibernateException e) {
+			session.close();
+			return false;
+		}
+
+	}
 	/* Method to DELETE a user from the records */
 	public void deleteUser(Integer userID) {
 		session = sessionFactory.openSession();

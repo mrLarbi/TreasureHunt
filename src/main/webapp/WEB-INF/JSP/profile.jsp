@@ -50,11 +50,13 @@
 		<div class="row">
 			<div class="container-fluid">
 			<form action="/user/editProfile" method="post" enctype="multipart/form-data">
-			<button style="margin-right:20px" id="changeAvatar" class="btn btn-primary" type="sumbit"> Change Avatar</button>
 			<div style="display: inline-block" class="col-md-offset-1 form-group">
-    			<input type="file" name="inputAvatar" id="inputAvatar">
+    			<input type="file" name="inputAvatar" id="inputAvatar" accept="image/*">
   			</div>
-  			</form>
+				<button style="margin-right:20px" id="changeAvatar"
+						class="btn btn-primary" type="sumbit">
+					Change Avatar</button>
+			</form>
   			</div>
   			<div class="container-fluid">
 			<a id="editProfile" class="btn btn-primary"> Edit Profile</a>

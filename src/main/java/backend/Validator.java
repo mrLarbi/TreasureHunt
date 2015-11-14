@@ -71,4 +71,5 @@ public class Validator {
 		Pattern pattern = Pattern.compile(NUMBER_PATTERN);
 		return pattern.matcher(number).matches();
 	}
+
 }

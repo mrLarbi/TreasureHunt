@@ -19,7 +19,9 @@
 					<div>
 		 				<ol id="plistdisplay">
 		 					<c:forEach items="${done}" var="hunter">
-								<li><c:out value="${hunter.hunting.huntedPoint.name}"/></li> <span class="valuePoint" style="display:none"><c:out value="${hunter.finished}"/></span>
+								<li><c:out value="${hunter.hunting.huntedPoint.name}"/></li>
+									<span class="valuePoint" style="display:none">
+									<c:out value="${hunter.finished}"/></span>
 							</c:forEach>
 						</ol> 
 					</div>

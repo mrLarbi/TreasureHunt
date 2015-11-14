@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,8 +46,18 @@ public class DisplayHunt extends HttpServlet{
         request.setAttribute("logged", SessionHandler.isSignedIn(request));
 
         User current = SessionHandler.getUser(request);
-        if (current != null && hunt != null) {
-            request.setAttribute("done", HuntingManager.getDonePoints(current,hunt));
+        if (hunt != null) {
+            List<Hunter>  hunterList = Collections.emptyList();
+
+            if (current != null) {
+                 hunterList = HuntingManager.getDonePoints(current,hunt);
+            }
+
+            if (hunterList.isEmpty()) {
+                hunterList = HuntingManager.sendAllAsNotCheckedPoints(current,hunt);
+            }
+
+            request.setAttribute("done", hunterList);
         }
 
         request.setAttribute("title",hunt.getName());
