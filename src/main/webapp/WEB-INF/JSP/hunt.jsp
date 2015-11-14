@@ -18,9 +18,9 @@
 				<div id="list" class="col-xs-offset-1 col-md-5 container-fluid blackTransbg rounded">
 					<div>
 		 				<ol id="plistdisplay">
-		 					<c:forEach items="${hunt.coordinates}" var="point">
-		 					<li><c:out value="${point.name}"/></li>    
- 							</c:forEach>
+		 					<c:forEach items="${done}" var="hunter">
+								<li><c:out value="${hunter.hunting.huntedPoint.name}"/></li> <span class="valuePoint" style="display:none"><c:out value="${hunter.finished}"/></span>
+							</c:forEach>
 						</ol> 
 					</div>
 				</div>

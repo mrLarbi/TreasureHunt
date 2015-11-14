@@ -1,6 +1,6 @@
 var map;
 var addresses = [];
-var latlng = []
+var latlng = [];
 
 $( document ).ready(function() {
     initPointsDisplay();
@@ -29,6 +29,17 @@ function initPointsDisplay() {
 		});
 
 		i++;
+	});
+
+	var j = 0;
+	$(".valuePoint").each(function() {
+		var vl = $(this).text();
+		if(vl === "true") {
+			var ele = document.getElementById("point" + j);
+			ele.style.setProperty("text-decoration", "line-through");
+		}
+
+		j++;
 	});
 
 }

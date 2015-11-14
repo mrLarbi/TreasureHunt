@@ -3,6 +3,7 @@
 
 <head>
     <title>
+      ${title}
     </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,4 +24,5 @@
   <script src="https://maps.googleapis.com/maps/api/js"></script>
   <script type="text/javascript" src="${root}/Resources/JavaScript/createHunt.js"></script>
   <script type="text/javascript" src="${root}/Resources/JavaScript/displayHunt.js"></script>
+  <script type="text/javascript" src="${root}/Resources/JavaScript/profile.js"></script>
 </head>
