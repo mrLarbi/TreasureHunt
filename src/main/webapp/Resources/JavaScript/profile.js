@@ -20,11 +20,20 @@ $(document).ready(function () {
        	inputclass: 'editableInput'
     });
 
-	$( "#changeAvatar" ).click(function() {
-  		
-	});
-
 	$( "#editProfile" ).click(function() {
-  		
+  		var edit = {};
+  		edit["newName"] = $('#pUsername').text();
+  		edit["newPhone"] = $('#pPhone').text();
+  		edit["newZIP"] = $('#pZIP').text();
+
+  		var params = {param:JSON.stringify(edit)};
+
+  		$.post("/user/editProfile",params, function(response) {
+			if (response == "false") {
+				return;
+			}
+		});
+
+  		console.log(JSON.stringify(edit))
 	});
 });
