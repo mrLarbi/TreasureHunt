@@ -1,6 +1,7 @@
 package servlets;
 
 import backend.SessionHandler;
+import backend.Validator;
 import hibernate.managers.UserManager;
 import hibernate.models.entities.User;
 
@@ -19,12 +20,18 @@ public class FollowUser extends HttpServlet {
         User currentUser  = SessionHandler.getUser(req);
         UserManager uManager = new UserManager();
 
-        User agent = uManager.find(Integer.parseInt(req.getParameter("user")));
+        if (Validator.isNumberFormat(req.getParameter("user"))) {
 
-        if (agent != null) {
-            uManager.addFriendshipBtn(agent,currentUser);
+            User agent = uManager.find(Integer.parseInt(req.getParameter("user")));
+
+            if (agent != null) {
+                uManager.addFriendshipBtn(agent,currentUser);
+            } else {
+                // Error message
+            }
+
         } else {
-            // Error message
+            resp.sendError(404);
         }
 
         // TODO notify user

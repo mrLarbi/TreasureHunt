@@ -1,6 +1,7 @@
 package servlets;
 
 import backend.SessionHandler;
+import backend.Validator;
 import hibernate.managers.UserManager;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class Profile extends HttpServlet {
         String username = request.getParameter("id");
         User user;
 
-        if (username != null && !username.isEmpty()) {
+        if (username != null && !username.isEmpty() && Validator.isValidUsername(username)) {
             UserManager userManager = new UserManager();
             user = userManager.findUserByUsername(username);
         } else {

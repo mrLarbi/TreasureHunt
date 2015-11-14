@@ -1,6 +1,7 @@
 package servlets;
 
 import backend.SessionHandler;
+import backend.Validator;
 import hibernate.managers.HuntManager;
 import hibernate.managers.UserManager;
 import hibernate.models.entities.Hunt;
@@ -21,6 +22,10 @@ public class StartHunt extends HttpServlet{
         User hunter = SessionHandler.getUser(req);
         String huntId = req.getParameter("hunt");
 
+        if  (!Validator.isNumberFormat(huntId)) {
+            resp.sendError(405);
+            return;
+        }
         HuntManager manager = new HuntManager();
         Hunt hunt = manager.find(Integer.parseInt(huntId));
 

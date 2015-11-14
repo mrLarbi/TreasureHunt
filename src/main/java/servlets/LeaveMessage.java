@@ -1,6 +1,7 @@
 package servlets;
 
 import backend.SessionHandler;
+import backend.Validator;
 import hibernate.managers.UserManager;
 import hibernate.models.entities.User;
 
@@ -24,6 +25,13 @@ public class LeaveMessage extends HttpServlet {
         User currentUser = SessionHandler.getUser(req);
 
         String to = req.getParameter("receiver");
+
+        if  (!Validator.isNumberFormat(to)) {
+            resp.sendError(405);
+            return;
+        }
+
+
         String messageContent = req.getParameter("content");
 
         UserManager  uManager = new UserManager();

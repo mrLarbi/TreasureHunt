@@ -2,6 +2,8 @@ package backend;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
 
+import java.util.regex.Pattern;
+
 public class Validator {
 	
 	public static final String USER_NAME_PATTERN =  "^[0-9]*[a-zA-Z][a-zA-Z0-9]*$";
@@ -16,6 +18,8 @@ public class Validator {
 	public static final String PHONE_PATTERN = "^[0-9]{10}$";
 
 	private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$";
+
+	public static final String NUMBER_PATTERN = "^([0-9]+)$";
 			
 	
 	public static boolean isValidPostalCode(String zip) {
@@ -44,5 +48,14 @@ public class Validator {
 		//RegularExpression regex = new RegularExpression(PASSWORD_PATTERN);
 		return password != null && password.length() >= 6 &&
 				password.length() <= 25; // && regex.matches(password);
+	}
+
+	public static boolean isNumberFormat(String number) {
+		if (number == null) {
+			return false;
+		}
+
+		Pattern pattern = Pattern.compile(NUMBER_PATTERN);
+		return pattern.matcher(number).matches();
 	}
 }

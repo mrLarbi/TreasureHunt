@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import backend.SessionHandler;
+import backend.Validator;
 import hibernate.managers.CoordinateManager;
 import hibernate.managers.HuntManager;
 import hibernate.managers.HuntingManager;
@@ -64,7 +65,13 @@ public class DisplayHunt extends HttpServlet{
         String lat = params.get("lat").toString();
         String lng = params.get("lng").toString();
 
-        Integer huntId = Integer.parseInt(params.getString("id"));
+        String id = params.getString("id");
+
+        if  (!Validator.isNumberFormat(id)) {
+            return false;
+        }
+
+        Integer huntId = Integer.parseInt(id);
         Hunt hunt= new HuntManager().find(huntId);
         boolean value = Boolean.parseBoolean(params.getString("value"));
 
