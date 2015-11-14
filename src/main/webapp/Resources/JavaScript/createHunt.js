@@ -42,11 +42,11 @@ $(document).ready(function () {
 
 		var params = {param:JSON.stringify(create)};
 
-		$.post("/user/createhunt",params, function(response) {
+		$.post("/TreasureHunt/user/createhunt",params, function(response) {
 			if (response == "false") {
 				return;
 			}
-			window.location.href = "/hunt?id="+response;
+			window.location.href = "/TreasureHunt/hunt?id="+response;
 		});
   		console.log(JSON.stringify(params));
 	});

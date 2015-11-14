@@ -42,6 +42,12 @@ public class DisplayHunt extends HttpServlet{
 
         request.setAttribute("hunt", hunt);
         request.setAttribute("logged", SessionHandler.isSignedIn(request));
+
+        User current = SessionHandler.getUser(request);
+        if (current != null && hunt != null) {
+            request.setAttribute("done", HuntingManager.getDonePoints(current,hunt));
+        }
+
     	this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/hunt.jsp").forward(request, response);
 
         // response.sendError(403)
