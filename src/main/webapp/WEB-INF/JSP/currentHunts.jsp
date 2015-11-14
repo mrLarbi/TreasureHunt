@@ -3,7 +3,7 @@
 	<c:forEach items="${currenthunts}" var="hunter">
 		<div id ="lasthunt" class="row">
 			<span> <img src="${root}/Resources/Images/defaultAvatar.png"></img></span>
-			<a href="${root}/hunt/?id=${hunter.hunting.hunt.id}">
+			<a href="${root}/hunt?id=${hunter.hunting.hunt.id}">
 				<span id="title">${hunter.hunting.hunt.name}</span>
 				<span id="creator">by <c:out value="${hunter.hunting.hunt.creator.username}"/>
 				</span>
