@@ -4,7 +4,7 @@
 
 	<header>
 	<div id="utitle" class="blackTransbg text-center container-fluid">
-		<h2 id="username"> <img id="avatar" src="${root}/Resources/Images/defaultAvatar.png" class="userimage"/> ${username}'s profile </h2>
+		<h2 id="username"> <img id="avatar" src="${root}/Resources/Images/${avatar}" class="userimage"/> ${username}'s profile </h2>
 	</div>
 	</header>
 
@@ -15,7 +15,7 @@
 			<li><a data-toggle="pill" href="#created">Created Hunts</a></li>
 		   	<li><a data-toggle="pill" href="#messages">Messages</a></li>
 			<li><a data-toggle="pill" href="#friends">Friends</a></li>
-		  	<li><a href="${root}/logout">Log out</a></li>
+		  	<li><a href="${root}/logout">Log Out</a></li>
 		</ul>
 	</div>
 

@@ -1,0 +1,28 @@
+img#avatar {
+	margin-top: -20px;
+}
+
+div#tabs {
+	height:100%;
+	border-style: hidden dashed hidden hidden;
+	border-color: white;
+}
+
+div#tabc {
+	height: 100%;
+}
+
+div#profileButton {
+	padding-top: 40px; 
+}
+
+button#createHunt {
+	height: 10%;
+	width: 20%;
+	font-size: 24px;
+}
+
+div#msgContent {
+	margin: 30px;
+	font-size: 20px;
+}
