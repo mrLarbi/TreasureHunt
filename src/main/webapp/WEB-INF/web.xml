@@ -109,6 +109,11 @@
         <servlet-name>profile</servlet-name>
         <servlet-class>servlets.Profile</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>editProfile</servlet-name>
+        <servlet-class>servlets.EditProfile</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -179,6 +184,11 @@
     <servlet-mapping>
         <servlet-name>messages</servlet-name>
         <url-pattern>/user/messages</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>editProfile</servlet-name>
+        <url-pattern>/user/editProfile</url-pattern>
     </servlet-mapping>
 
     <session-config>
