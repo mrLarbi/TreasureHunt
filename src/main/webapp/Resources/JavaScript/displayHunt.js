@@ -76,7 +76,8 @@ function initializeDisplay() {
 		for(i = 0; i < addresses.length; i++) {
     		var marker = new google.maps.Marker({
         		map: map,
-        		position: latlng[i]
+        		position: latlng[i],
+        		title: addresses[i]
     		});
 		}
 }

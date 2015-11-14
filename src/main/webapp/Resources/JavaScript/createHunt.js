@@ -111,17 +111,18 @@ function confirmPoint(location) {
 	             if(window.confirm("Do you want to add the point " + results[0].formatted_address + "?")) {
 	             	var newPoint = {id:lat+","+lng, name:results[0].formatted_address};
 	             	addedPoints.push(newPoint);
-	             	placeMarker(location);
+	             	placeMarker(location, results[0].formatted_address);
 	             	printPoints();
 	             }
 	     }
 	 });
 };
 
-function placeMarker(location) {
+function placeMarker(location, name) {
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+        title: name
     });
 
     markers.push(marker);
