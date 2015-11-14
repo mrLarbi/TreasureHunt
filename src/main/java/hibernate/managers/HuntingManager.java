@@ -7,10 +7,7 @@ import hibernate.models.entities.User;
 import hibernate.utility.HibernateUtility;
 import org.hibernate.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Machi on 24/10/2015.
@@ -109,6 +106,30 @@ public class HuntingManager {
         } catch (HibernateException e) {
             session.close();
            return null;
+        }
+
+    }
+
+    public static List<Hunter> getDonePoints(User user, Hunt hunt) {
+        session = sessionFactory.openSession();
+        try {
+            Query query = session.createQuery("FROM Hunter H " +
+                    "WHERE H.hunting.hunter.id = :hunter_id " +
+                    "AND H.hunting.hunt.id = :hunt_id");
+
+            query.setParameter("hunter_id", user.getId());
+            query.setParameter("hunt_id", hunt.getId());
+
+            query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+            List<Hunter> huntings = query.list();
+            session.close();
+
+            return huntings;
+
+        } catch (HibernateException e) {
+            session.close();
+            return Collections.emptyList();
         }
 
     }

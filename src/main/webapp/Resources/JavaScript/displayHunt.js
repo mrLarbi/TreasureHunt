@@ -109,7 +109,7 @@ function checkPointDisplay(p) {
 	} else {
 		check["value"] = "false";
 		params['param'] = JSON.stringify(check);
-		$.post("/hunt",params, function(response) {
+		$.post("/TreasureHunt/hunt",params, function(response) {
 			if(response == "true") {
 				ele.style.setProperty("text-decoration", "none");
 			}
