@@ -1,5 +1,6 @@
 package hibernate.managers;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -426,4 +427,25 @@ public class UserManager {
 
 		return user;
 	}
+
+	public List<User> searchUserByUsernamae(String phrase) {
+		Session session = sessionFactory.openSession();
+		List<User> results = Collections.emptyList();
+		try {
+			Query query = session.createQuery("FROM User U WHERE " +
+					"U.username LIKE %:phrase%"
+					+ " OR U.name LIKE %:phrase%");
+
+			query.setParameter("phrase",phrase);
+
+			results = query.list();
+			session.close();
+			return results;
+		} catch (HibernateException e) {
+		} finally {
+			session.close();
+		}
+		return results;
+	}
 }
+

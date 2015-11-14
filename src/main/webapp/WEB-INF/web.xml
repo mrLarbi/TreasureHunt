@@ -81,12 +81,6 @@
     </servlet>
 
     <servlet>
-        <servlet-name>checkpoint</servlet-name>
-        <servlet-class>servlets.CheckPoint</servlet-class>
-    </servlet>
-
-
-    <servlet>
         <servlet-name>starthunt</servlet-name>
         <servlet-class>servlets.StartHunt</servlet-class>
     </servlet>
@@ -150,12 +144,7 @@
         <servlet-name>hunt</servlet-name>
         <url-pattern>/hunt</url-pattern>
     </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>checkpoint</servlet-name>
-        <url-pattern>/user/checkpoint</url-pattern>
-    </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>available</servlet-name>
         <url-pattern>/available</url-pattern>

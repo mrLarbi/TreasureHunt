@@ -5,10 +5,7 @@ import hibernate.models.entities.Hunt;
 import hibernate.models.entities.User;
 import hibernate.utility.HibernateUtility;
 import hibernate.utility.SqlDateUtility;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 
 import java.util.*;
 
@@ -128,5 +125,23 @@ public class HuntManager {
             }
         }
         return null;
+    }
+
+
+    public List<Hunt> searchHuntByName(String name) {
+        Session session = sessionFactory.openSession();
+        List<Hunt> results = Collections.emptyList();
+        try {
+            Query query = session.createQuery("FROM Hunt H WHERE H.name LIKE %:phrase%");
+            query.setParameter("phrase",name);
+
+            results = query.list();
+            session.close();
+            return results;
+        } catch (HibernateException e) {
+        } finally {
+            session.close();
+        }
+        return results;
     }
 }
