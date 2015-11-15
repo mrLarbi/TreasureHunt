@@ -47,13 +47,13 @@
                             <label class="control-label col-md-2" for="gender">Gender</label>
                             <div id="genderBoxes" class="col-xs-3 col-md-6">
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="genderbox" value="option1"> Male
+                                    <input type="checkbox" name = "gender" id="genderbox" value="M"> Male
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="genderbox" value="option2"> Female
+                                    <input type="checkbox" id="genderbox" name = "gender" value="F"> Female
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="genderbox" value="option3"> Other
+                                    <input type="checkbox" name ="gender" id="genderbox" value="N"> Other
                                 </label>
                             </div>
                         </div>

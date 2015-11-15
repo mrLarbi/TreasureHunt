@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import backend.SessionHandler;
 import hibernate.managers.CoordinateManager;
 import hibernate.managers.HuntManager;
+import hibernate.managers.HuntingManager;
 import hibernate.managers.UserManager;
 import hibernate.models.entities.Coordinate;
 import hibernate.models.entities.Hunt;
+import hibernate.models.entities.Hunter;
 import hibernate.models.entities.User;
 import org.json.JSONObject;
 
@@ -45,7 +47,7 @@ public class DisplayHunt extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer = response.getWriter();
-        response.setContentType("appliaction/json");
+        response.setContentType("appliaction/html");
         writer.write(new Boolean(checkPoint(request,response)).toString());
     }
 
@@ -55,12 +57,14 @@ public class DisplayHunt extends HttpServlet{
 
     private boolean checkPoint(HttpServletRequest request, HttpServletResponse response) {
         JSONObject params = parseRequestParams(request);
-        String lat = params.getString("lat");
-        String lng = params.getString("lng");
+        String lat = params.get("lat").toString();
+        String lng = params.get("lng").toString();
 
-        Integer huntId = Integer.parseInt(params.getString("huntname"));
+        Integer huntId = Integer.parseInt(params.getString("id"));
         Hunt hunt= new HuntManager().find(huntId);
         boolean value = Boolean.parseBoolean(params.getString("value"));
+
+        UserManager manager = new UserManager();
 
         if  (hunt == null) {
             return false;
@@ -69,7 +73,13 @@ public class DisplayHunt extends HttpServlet{
             if (currentUser == null) {
                 return false;
             } else {
-                return new UserManager().checkCoordinate(currentUser,hunt,lat,lng,value);
+                Hunter hunter = HuntingManager.getHunter(currentUser, hunt);
+                if (hunter == null) {
+                    manager.startHunting(currentUser,hunt);
+                    return manager.checkCoordinate(currentUser,hunt,lat,lng,value);
+                } else {
+                    return manager.checkCoordinate(currentUser, hunt, lat, lng, value);
+                }
             }
         }
     }

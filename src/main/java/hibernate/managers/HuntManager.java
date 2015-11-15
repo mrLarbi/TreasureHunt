@@ -11,10 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by mohameddd on 10/18/15.
@@ -122,5 +119,15 @@ public class HuntManager {
         }
 
         return desiredFive;
+    }
+
+    public Coordinate getCoordnate(Hunt hunt, String lat, String lng) {
+        Set<Coordinate> coordinates = hunt.getCoordinates();
+        for (Coordinate coordinate:coordinates) {
+            if (coordinate.getLatitude().equalsIgnoreCase(lat) && coordinate.getLongitude().equalsIgnoreCase(lng)) {
+                return coordinate;
+            }
+        }
+        return null;
     }
 }

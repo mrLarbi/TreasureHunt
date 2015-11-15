@@ -84,4 +84,31 @@ public class HuntingManager {
             session.close();
         }
     }
+
+    public static Hunter getHunter(User hunter, Hunt hunt) {
+        session = sessionFactory.openSession();
+        try {
+            Query query = session.createQuery("FROM Hunter H WHERE H.hunting.hunter.id = :hunter_id " +
+                    "AND H.hunting.hunt.id = :hunt_id");
+
+            query.setParameter("hunter_id", hunter.getId());
+            query.setParameter("hunt_id", hunt.getId());
+
+
+            query.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+            List<Hunter> huntings = query.list();
+
+            if (huntings.isEmpty()) {
+                return null;
+            }
+            Hunter hunting = huntings.get(0);
+            return hunting;
+        } catch (HibernateException e) {
+           return null;
+        } finally {
+            session.close();
+        }
+
+    }
 }
