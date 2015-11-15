@@ -33,15 +33,12 @@ public class Profile extends HttpServlet {
         String zipcode = "None";
         String name = "None";
 
-
         String gender = "None";
         if (user.getGender() == 'M') {
             gender = "Male";
         } else if (user.getGender() == 'F') {
             gender = "Female";
         }
-
-        System.out.println(user.getPhone());
 
         if (user.getPhone() != null) {
             phone = user.getPhone();
@@ -51,7 +48,7 @@ public class Profile extends HttpServlet {
             zipcode = "" + user.getPostalcode();
         }
 
-        if (!user.getName().equals("")) {
+        if (user.getName() != null) {
             name = user.getName();
         }
 
@@ -65,7 +62,7 @@ public class Profile extends HttpServlet {
         request.setAttribute("createdhunts", user.getCreatedhunts());
         request.setAttribute("currenthunts", user.getCurrentHunts());
         request.setAttribute("friends", user.getFriends());
-        request.setAttribute("messages", user.getSentMessages());
+        request.setAttribute("messages", user.getReceivedMessages());
         this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/viewProfile.jsp").forward(request, response);
 
 
