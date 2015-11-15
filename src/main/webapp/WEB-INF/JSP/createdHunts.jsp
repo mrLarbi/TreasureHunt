@@ -1,12 +1,14 @@
 <h1> Created Hunts </h1>
 <div>
-	<ul>
-		<li> 
-			<a href="displayHunt?id=1"> Paris by calderino </a>
-		</li>
-		<li> 
-			<a href="displayHunt?id=2"> Massy by calderino </a>
-		</li>
-	</ul>
+	<c:forEach items="${createdhunts}" var="hunt">
+		<div id ="lasthunt" class="row">
+			<span> <img src="${root}/Resources/Images/${hunt.creator.avatar}"></img></span>
+			<a href="${root}/hunt?id=${hunt.id}">
+				<span id="title">${hunt.name}</span> <span id="creator">by <c:out value="${hunt.creator.username}"/></span>
+			</a>
+		</div>
+	</c:forEach>
 </div>
-<button> Create </button>
+<a href="${root}/user/createhunt">
+	<button class="btn btn-default btnclass">Create</button>
+</a>

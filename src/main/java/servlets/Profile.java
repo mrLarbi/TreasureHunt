@@ -20,7 +20,6 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("id");
-
         User user;
 
         if (username != null && !username.isEmpty()) {
@@ -32,6 +31,8 @@ public class Profile extends HttpServlet {
 
         String phone = "None";
         String zipcode = "None";
+        String name = "None";
+
 
         String gender = "None";
         if (user.getGender() == 'M') {
@@ -42,7 +43,7 @@ public class Profile extends HttpServlet {
 
         System.out.println(user.getPhone());
 
-        if ("".equals(user.getPhone())) {
+        if (user.getPhone() != null) {
             phone = user.getPhone();
         }
 
@@ -50,13 +51,22 @@ public class Profile extends HttpServlet {
             zipcode = "" + user.getPostalcode();
         }
 
+        if (!user.getName().equals("")) {
+            name = user.getName();
+        }
+
         request.setAttribute("username", user.getUsername());
-            request.setAttribute("email", user.getEmail());
-            request.setAttribute("phone", phone);
-            request.setAttribute("zipcode", zipcode);
-            request.setAttribute("gender", gender);
-            request.setAttribute("avatar", "" + user.getAvatar());
-            this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/viewProfile.jsp").forward(request, response);
+        request.setAttribute("email", user.getEmail());
+        request.setAttribute("phone", phone);
+        request.setAttribute("zipcode", zipcode);
+        request.setAttribute("gender", gender);
+        request.setAttribute("name", name);
+        request.setAttribute("avatar", "" + user.getAvatar());
+        request.setAttribute("createdhunts", user.getCreatedhunts());
+        request.setAttribute("currenthunts", user.getCurrentHunts());
+        request.setAttribute("friends", user.getFriends());
+        request.setAttribute("messages", user.getSentMessages());
+        this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/viewProfile.jsp").forward(request, response);
 
 
     }

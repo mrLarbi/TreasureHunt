@@ -15,6 +15,16 @@
 
 <div>
 	<h2>
+		Name
+	</h2>
+	<p>
+		${ name }
+	</p>
+</div>
+
+
+<div>
+	<h2>
 		Phone
 	</h2>
 	<p>
