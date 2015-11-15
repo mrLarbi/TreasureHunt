@@ -32,6 +32,7 @@ public class Profile extends HttpServlet {
         String phone = "None";
         String zipcode = "None";
         String name = "None";
+        boolean isSameUser = false;
 
         String gender = "None";
         if (user.getGender() == 'M') {
@@ -52,6 +53,11 @@ public class Profile extends HttpServlet {
             name = user.getName();
         }
 
+        User currentUser = SessionHandler.getUser(request);
+        if(currentUser.getId() == user.getId()) {
+            isSameUser = true;
+        }
+
         request.setAttribute("username", user.getUsername());
         request.setAttribute("email", user.getEmail());
         request.setAttribute("phone", phone);
@@ -63,6 +69,7 @@ public class Profile extends HttpServlet {
         request.setAttribute("currenthunts", user.getCurrentHunts());
         request.setAttribute("friends", user.getFriends());
         request.setAttribute("messages", user.getReceivedMessages());
+        request.setAttribute("isSameUser", isSameUser);
         this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/viewProfile.jsp").forward(request, response);
 
 

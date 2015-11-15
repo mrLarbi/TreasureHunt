@@ -165,7 +165,11 @@ public class SessionHandler {
 	}
 
 	public static User getUser(HttpServletRequest request) {
-		return (User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
+		if(user == null) {
+			return getUserFromRememberCookie(request, new UserManager());
+		}
+		return user;
 	}
 
 	public static void setUser(HttpServletRequest request, User user) {

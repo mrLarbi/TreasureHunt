@@ -7,7 +7,7 @@
 		  <li ><a data-toggle="pill" href="#created">Created Hunts</a></li>
 		  <li ><a data-toggle="pill" href="#messages">Messages</a></li>
 		  <li ><a data-toggle="pill" href="#friends">Friends</a></li>
-			<li ><a href="${root}/logout">Log out</a></li>
+		  	<li ><a href="${root}/logout">Log out</a></li>
 		</ul>
 
 		<div class="tab-content blackTransbg">
