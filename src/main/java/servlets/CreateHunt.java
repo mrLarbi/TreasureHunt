@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -75,11 +76,17 @@ public class CreateHunt extends HttpServlet{
 
         coordinateManager.addCoordinates(coordinates);
 
-        manager.addHunt(hunt);
+        Integer id = manager.addHunt(hunt);
 
         manager.addCoordinatesToHunt(hunt, coordinates);
 
+        response.setContentType("application/html");
+        PrintWriter writer = response.getWriter();
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/displayhunt.jsp").forward(request, response);
+        if ( id != null) {
+            writer.write(id.toString());
+        } else {
+            writer.write(new Boolean(false).toString());
+        }
     }
 }
